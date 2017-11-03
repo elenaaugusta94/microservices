@@ -6,4 +6,4 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/elenaaugusta94/microservices
+          uri: https://github.com/elenaaugusta94/configurations
