@@ -30,6 +30,7 @@ namespace MsAuthentication
         {
             // Add framework services.
             services.AddMvc();
+	    services.AddDiscoveryClient(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +40,7 @@ namespace MsAuthentication
             loggerFactory.AddDebug();
 
             app.UseMvc();
+	    app.UseDiscoveryClient();
         }
     }
 }
