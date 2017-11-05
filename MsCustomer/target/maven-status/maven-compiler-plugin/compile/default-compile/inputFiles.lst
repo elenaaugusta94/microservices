@@ -1,6 +1,6 @@
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/MsCustomer/ServletInitializer.java
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/MsCustomer/InvocationServiceCEP.java
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/Controller/CustomerController.java
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/MsCustomer/CustomerApp.java
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/DAO/CustomerDAO.java
-/usr/lib/jvm/java-8-oracle/spring/MsCustomer/src/main/java/Model/Customer.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/entities/Customer.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/msCustomer/InvocationServiceCEP.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/msCustomer/CustomerApp.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/DAO/CustomerDAO.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/msCustomer/ServletInitializer.java
+/home/elena/Documents/aplicacao/microservices/microservices/MsCustomer/src/main/java/controller/CustomerController.java

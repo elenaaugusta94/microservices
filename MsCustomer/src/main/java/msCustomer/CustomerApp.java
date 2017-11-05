@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-@SpringBootApplication(scanBasePackages={"Controller","DAO","Model"})
-@EntityScan("Model")
-@ComponentScan("Controller")
+@SpringBootApplication(scanBasePackages={"controller","DAO","entities"})
+@EntityScan("entities")
+@ComponentScan("controller")
 @EnableJpaRepositories("DAO")
 @EnableEurekaClient
 public class CustomerApp {
