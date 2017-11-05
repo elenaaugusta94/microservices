@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Pivotal.Discovery.Client;
+using Steeltoe.Extensions.Configuration;
+
 namespace MsAuthentication
 {
     public class Startup
