@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,11 @@ import DAO.CustomerDAO;
 import entities.Customer;
 
 @Controller
-public class CustomerController {
+public  class CustomerController {
 
 	@Autowired	
 	private CustomerDAO customerDAO;
 
-	@RequestMapping("/index")
-	@ResponseBody
 	public String index() {
 
 		return "gerenciador";
@@ -48,17 +47,28 @@ public class CustomerController {
 
 	@RequestMapping("/getCustomers")
 	@ResponseBody
-	public List<Customer> getAllClientes() {
+	public List<String> getAllClientes() {
 		List<Customer> customers = new ArrayList();
-		customerDAO.findAll().forEach(customers::add);
-		return customers;
+		List<String> c2 = new ArrayList();
+	//	customerDAO.findAll().forEach(customers::add);
+		return customerDAO.findAll().stream().map(a -> a.getName()).collect(Collectors.toList());
+		
+		
 	}
 
-	@RequestMapping("getCustomerCpf/{cpf}")
+//	@RequestMapping("getCustomerCpf/{cpf}")
+//	@ResponseBody
+//	public Customer getClientePorCpf(@PathVariable String cpf) {
+//		Customer c = customerDAO.findByCpf(cpf);
+//		return c;
+//
+//	}
+	
+	@RequestMapping("/customer/getCustomer/{cpf}")
 	@ResponseBody
-	public Customer getClientePorCpf(@PathVariable String cpf) {
+	public String getClienteByCpf(@PathVariable String cpf) {
 		Customer c = customerDAO.findByCpf(cpf);
-		return c;
+		return c.toString();
 
 	}
 
@@ -73,6 +83,7 @@ public class CustomerController {
 	 }
 	 return "Customer deleted!";
 	 }
-	
+
+			
 
 }

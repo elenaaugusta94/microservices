@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ import com.google.gson.JsonParser;
 
 import DAO.ProductDAO;
 import entities.Product;
-
+@RefreshScope
 @Controller
 public class ProductController {
 	@Autowired
@@ -55,7 +57,7 @@ public class ProductController {
 
 	}
 
-	@RequestMapping("/getProducts")
+	@RequestMapping("/product/getProducts")
 	@ResponseBody
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList();
@@ -82,27 +84,28 @@ public class ProductController {
 		return "sucess";
 	}
 
-	@RequestMapping("/getCustomers")
-	@ResponseBody
-	public String getCustomer() {
-
-		String getCustomer = "http://localhost:9000/getCustomer";
-		try {
-			URL url = new URL(getCustomer);
-			HttpURLConnection requestCustomer = (HttpURLConnection) url.openConnection();
-			requestCustomer.connect();
-
-			JsonParser jp = new JsonParser();
-			JsonElement getCustomerResult = jp.parse(new InputStreamReader((InputStream) requestCustomer.getContent()));
-			return getCustomerResult.toString();
-
-		} catch (Exception e) {
-			System.out.println("" + e.getMessage());
-			e.printStackTrace();
-			return "Erro:" + e.getMessage();
-		}
-
-	}
+//	@RequestMapping("/getCustomers")
+//	@ResponseBody
+//	
+//	public String getCustomer() {
+//
+//		String getCustomer = "http://localhost:9000/getCustomer";
+//		try {
+//			URL url = new URL(getCustomer);
+//			HttpURLConnection requestCustomer = (HttpURLConnection) url.openConnection();
+//			requestCustomer.connect();
+//
+//			JsonParser jp = new JsonParser();
+//			JsonElement getCustomerResult = jp.parse(new InputStreamReader((InputStream) requestCustomer.getContent()));
+//			return getCustomerResult.toString();
+//
+//		} catch (Exception e) {
+//			System.out.println("" + e.getMessage());
+//			e.printStackTrace();
+//			return "Erro:" + e.getMessage();
+//		}
+//
+//	}
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	@ResponseBody
 	public String publisNewsLetter() {
