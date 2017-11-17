@@ -12,6 +12,8 @@ import entities.Product;
 public interface ProductDAO extends CrudRepository<Product,String>{
 	
 	public List<Product> findAll();	
+	public Product findById(String id);
+
 	
 	
 }

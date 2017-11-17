@@ -127,5 +127,13 @@ public class ProductController {
 		}
 
 	}
+	@RequestMapping(value= "getProduct/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	private Product getProductByID(@PathVariable("id") String id){
+		Product p = productDAO.findById(id);
+		String teste = p.toString();
+		return p;
+		
+	}
 
 }

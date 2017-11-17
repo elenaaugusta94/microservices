@@ -10,16 +10,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.logging.Logger;
 
 import DAO.CustomerDAO;
 import entities.Customer;
+import intercomm.ProductCustomer;
 
-@Controller
+@RestController
 public  class CustomerController {
 
 	@Autowired	
 	private CustomerDAO customerDAO;
-
+	protected Logger logger = Logger.getLogger(CustomerController.class.getName());
+	private ProductCustomer pc;
 	public String index() {
 
 		return "gerenciador";
@@ -56,22 +60,27 @@ public  class CustomerController {
 		
 	}
 
-//	@RequestMapping("getCustomerCpf/{cpf}")
-//	@ResponseBody
-//	public Customer getClientePorCpf(@PathVariable String cpf) {
-//		Customer c = customerDAO.findByCpf(cpf);
-//		return c;
-//
-//	}
-	
-	@RequestMapping("/customer/getCustomer/{cpf}")
+	@RequestMapping("getCustomerCpf/{cpf}")
 	@ResponseBody
+	public Customer getClientePorCpf(@PathVariable String cpf) {
+		Customer c = customerDAO.findByCpf(cpf);
+		return c;
+
+	}
+	
+	
 	public String getClienteByCpf(@PathVariable String cpf) {
 		Customer c = customerDAO.findByCpf(cpf);
 		return c.toString();
 
 	}
-
+	@RequestMapping("/products/{id}")
+	 private String productID(String id){
+		logger.info(String.format("Customer.findById(%s)", id));
+		System.out.println("veio algo?"+pc.getProductID(id));
+		return pc.getProductID(id);
+		 
+	 }
 	 @RequestMapping("delete/{cpf}")
 	 @ResponseBody
 	 public String delete(@PathVariable String cpf) {
