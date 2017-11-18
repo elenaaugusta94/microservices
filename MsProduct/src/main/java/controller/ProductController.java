@@ -128,11 +128,11 @@ public class ProductController {
 		}
 
 	}
-	@RequestMapping(value= "product/getProduct/{id}")
+	@RequestMapping(value= "/product/getProduct/{id}")
 	@ResponseBody
 	public String getProductByID(@PathVariable("id") String id){
 		Product pr = productDAO.findById(id);
-		return pr.getName();		
+		return id;		
 	}
 
 }

@@ -22,8 +22,12 @@ public  class CustomerController {
 
 	@Autowired	
 	private CustomerDAO customerDAO;
+	
 	protected Logger logger = Logger.getLogger(CustomerController.class.getName());
+	
+//	@Autowired
 	private ProductCustomer pc;
+	
 	public String index() {
 
 		return "gerenciador";
@@ -75,7 +79,9 @@ public  class CustomerController {
 
 	}
 	@RequestMapping("customer/products/{id}")
-	 private String productID(String id){
+	@ResponseBody
+	 private String productID(@PathVariable("id") String id){
+		
 		logger.info(String.format("Customer.findById(%s)", id));
 		System.out.println("veio algo?"+pc.getProductID(id));
 		return pc.getProductID(id);
