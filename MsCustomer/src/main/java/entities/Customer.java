@@ -69,7 +69,7 @@ public class Customer {
     public String toString() {
         return String.format(
                 "Cliente[id=%d, name='%s', cpf='%s' , email='%s']",
-
+                
                 id, name, cpf, email);
     }
 

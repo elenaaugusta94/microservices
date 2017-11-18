@@ -74,7 +74,7 @@ public  class CustomerController {
 		return c.toString();
 
 	}
-	@RequestMapping("/products/{id}")
+	@RequestMapping("customer/products/{id}")
 	 private String productID(String id){
 		logger.info(String.format("Customer.findById(%s)", id));
 		System.out.println("veio algo?"+pc.getProductID(id));

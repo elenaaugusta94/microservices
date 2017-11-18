@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import DAO.ProductDAO;
 import entities.Product;
-@RefreshScope
-@Controller
+
+@RestController
 public class ProductController {
 	@Autowired
 	private ProductDAO productDAO;
@@ -127,13 +128,11 @@ public class ProductController {
 		}
 
 	}
-	@RequestMapping(value= "getProduct/{id}", method = RequestMethod.GET)
+	@RequestMapping(value= "product/getProduct/{id}")
 	@ResponseBody
-	private Product getProductByID(@PathVariable("id") String id){
-		Product p = productDAO.findById(id);
-		String teste = p.toString();
-		return p;
-		
+	public String getProductByID(@PathVariable("id") String id){
+		Product pr = productDAO.findById(id);
+		return pr.getName();		
 	}
 
 }

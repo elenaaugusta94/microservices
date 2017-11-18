@@ -29,6 +29,7 @@ public class Product {
 		this.number = number;
 		this.value = value;
 	}
+	public Product(){}
 	public Product( String name, String description, int number, double value) {
 		
 		
@@ -37,7 +38,6 @@ public class Product {
 		this.number = number;
 		this.value = value;
 	}
-	public Product(){}
 	public String getId() {
 		return id;
 	}
