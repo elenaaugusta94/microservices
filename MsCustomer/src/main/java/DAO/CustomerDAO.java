@@ -6,9 +6,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
 import entities.Customer;
-
 
 
 @Transactional

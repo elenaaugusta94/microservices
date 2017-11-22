@@ -1,7 +1,9 @@
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/controller/CustomerController.java
+/home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/controller/CustomerImplementsDAO.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/msCustomer/CustomerApp.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/intercomm/ProductCustomer.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/entities/Customer.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/msCustomer/InvocationServiceCEP.java
+/home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/intercomm/CustomerProductsImplements.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/msCustomer/ServletInitializer.java
 /home/elena/Documents/aplicacao/microservices/MsCustomer/src/main/java/DAO/CustomerDAO.java

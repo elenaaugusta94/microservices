@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private int id;
 	@NotNull
 	private String name;
 	@NotNull
@@ -20,13 +20,13 @@ public class Customer {
     private String email;
 	
     
-	public Customer(Long id, String name, String cpf, String email) {
+	public Customer(int id, String name, String cpf, String email) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;				
 		this.email = email;
 	}
-	public Customer(Long id){
+	public Customer(int id){
 		this.id = id;
 	}
 	public Customer(String name, String cpf, String email) {
@@ -59,10 +59,10 @@ public class Customer {
 		this.email = email;
 	}
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	@Override

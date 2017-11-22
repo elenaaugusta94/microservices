@@ -35,6 +35,9 @@ public class ProductController {
 		return "index";
 	}
 
+	public ProductController(){
+		
+	}
 	@RequestMapping("*")
 	@ResponseBody
 	public String fallbackMethod() {

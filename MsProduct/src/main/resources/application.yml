@@ -3,12 +3,13 @@ server:
   
 
 eureka:
-client:
-serviceUrl:
-defaultZone: ${vcap.services.discovery-service.credentials.uri:http://127.0.0.1:8761}/eureka/
-instance:
-leaseRenewalIntervalInSeconds: 1
-leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.discovery-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      instance:
+      leaseRenewalIntervalInSeconds: 1
+      leaseExpirationDurationInSeconds: 2
+      
 ribbon:
   eureka:
     enabled: true

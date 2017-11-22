@@ -11,11 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan("entities")
 @ComponentScan("controller")
+@ComponentScan("intercomm")
 @EnableJpaRepositories("DAO")
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableFeignClients
-@SpringBootApplication(scanBasePackages={"controller","DAO","entities"})
+@SpringBootApplication(scanBasePackages={"controller","DAO","entities","intercomm"})
 public class CustomerApp {
 	
 	public static void main(String[] args) {

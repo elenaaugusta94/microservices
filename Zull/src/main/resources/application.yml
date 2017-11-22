@@ -10,7 +10,7 @@ endpoints:
     sensitive: false
 
 zuul:
-  prefix: /controller
+  prefix: 
   routes:
     customer: 
       path: /customer/**
