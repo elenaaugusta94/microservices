@@ -26,8 +26,9 @@ import entities.Product;
 
 @RestController
 public class ProductController {
+
 	@Autowired
-	private ProductDAO productDAO;
+	private ProductService productService;
 
 	@RequestMapping("/index")
 	@ResponseBody
@@ -35,9 +36,10 @@ public class ProductController {
 		return "index";
 	}
 
-	public ProductController(){
-		
+	public ProductController() {
+
 	}
+
 	@RequestMapping("*")
 	@ResponseBody
 	public String fallbackMethod() {
@@ -48,68 +50,45 @@ public class ProductController {
 	@ResponseBody
 	public String addProduct(@PathVariable String name, @PathVariable String description, @PathVariable int number,
 			@PathVariable double value) {
-		String idProduct = "";
 		try {
-
 			Product p = new Product(name, description, number, value);
-			productDAO.save(p);
-			idProduct = String.valueOf(p.getId());
+			productService.saveProduct(p);
+
 		} catch (Exception ex) {
-			return "Error: " + ex.toString();
+			return "Error creating the user: " + ex.toString();
 		}
-		return "Sucess";
+		return "Success! ";
 
 	}
 
-	@RequestMapping("/product/getProducts")
+	@RequestMapping("getProducts")
 	@ResponseBody
 	public List<Product> getAllProducts() {
-		List<Product> products = new ArrayList();
-		products = productDAO.findAll().stream().filter(p -> p.getNumber() > 0).collect(Collectors.toList());
-		return products;
+
+		return productService.getAllProducts();
+
 	}
 
-	@RequestMapping(value = "/venda", method = RequestMethod.POST)
-	@ResponseBody
-	public String updateStock(@RequestParam(value = "id") String[] id, @RequestParam(value = "qt") String[] qt) {
-		int estoque[] = new int[id.length];
-		Product products[] = new Product[id.length];
-		for (int i = 0; i < estoque.length; i++) {
-			products[i] = productDAO.findOne(id[i]);
-			estoque[i] = products[i].getNumber() - Integer.parseInt(qt[i]);
-			if (estoque[i] < 0) {
-				return "fail";
-			}
-		}
-		for (int i = 0; i < estoque.length; i++) {
-			products[i].setNumber(estoque[i]);
-			productDAO.save(products[i]);
-		}
-		return "sucess";
-	}
+	// @RequestMapping(value = "/venda", method = RequestMethod.POST)
+	// @ResponseBody
+	// public String updateStock(@RequestParam(value = "id") String[] id,
+	// @RequestParam(value = "qt") String[] qt) {
+	// int estoque[] = new int[id.length];
+	// Product products[] = new Product[id.length];
+	// for (int i = 0; i < estoque.length; i++) {
+	// products[i] = productDAO.findOne(id[i]);
+	// estoque[i] = products[i].getNumber() - Integer.parseInt(qt[i]);
+	// if (estoque[i] < 0) {
+	// return "fail";
+	// }
+	// }
+	// for (int i = 0; i < estoque.length; i++) {
+	// products[i].setNumber(estoque[i]);
+	// productDAO.save(products[i]);
+	// }
+	// return "sucess";
+	// }
 
-//	@RequestMapping("/getCustomers")
-//	@ResponseBody
-//	
-//	public String getCustomer() {
-//
-//		String getCustomer = "http://localhost:9000/getCustomer";
-//		try {
-//			URL url = new URL(getCustomer);
-//			HttpURLConnection requestCustomer = (HttpURLConnection) url.openConnection();
-//			requestCustomer.connect();
-//
-//			JsonParser jp = new JsonParser();
-//			JsonElement getCustomerResult = jp.parse(new InputStreamReader((InputStream) requestCustomer.getContent()));
-//			return getCustomerResult.toString();
-//
-//		} catch (Exception e) {
-//			System.out.println("" + e.getMessage());
-//			e.printStackTrace();
-//			return "Erro:" + e.getMessage();
-//		}
-//
-//	}
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	@ResponseBody
 	public String publisNewsLetter() {
@@ -131,11 +110,13 @@ public class ProductController {
 		}
 
 	}
-	@RequestMapping(value= "/product/getProduct/{id}")
+
+	@RequestMapping(value = "/product/getProduct/{id}")
 	@ResponseBody
-	public String getProductByID(@PathVariable("id") String id){
-		Product pr = productDAO.findById(id);
-		return id;		
+	public String getProductByID(@PathVariable("id") String id) {
+		Product productName;
+		productName =productService.findProductByID(id);
+		return productName.getName();
 	}
 
 }
