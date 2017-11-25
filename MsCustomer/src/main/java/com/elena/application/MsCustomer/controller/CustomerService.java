@@ -6,20 +6,16 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.elena.application.MsCustomer.DAO.CustomerDAO;
 import com.elena.application.MsCustomer.entities.Customer;
-import com.elena.application.MsCustomer.intercomm.CustomerProductInterface;
 
 @Service
 public class CustomerService {
 	
 	@Autowired
 	private CustomerDAO customer;
-	
-	
 	
 	
 	
@@ -82,18 +78,18 @@ public class CustomerService {
 		return customer.findAll().stream().map(a -> a.getName()).collect(Collectors.toList());
 
 	}
-	
-//	public String getProductsInCustomer(String id) {
-//		try {
-//			return product.getProductID(id);
-//			
-//
-//		} catch (ArrayIndexOutOfBoundsException e) {
-//
-//			throw new UnsupportedOperationException("Not supported yet.");
-//
-//		}
-//
-//	}
+
+	public String getProductsInCustomer(String id) {
+		try {
+			return "";// product.getProductID(id);
+		
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+			throw new UnsupportedOperationException("Not supported yet.");
+
+		}
+
+	}
 
 }

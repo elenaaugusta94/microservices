@@ -18,7 +18,9 @@ public class Customer {
     private String cpf;
 	@NotNull
     private String email;
-	
+//	@NotNull
+//	private List<ProductDTO	>products;
+	//
     
 	public Customer(int id, String name, String cpf, String email) {
 		this.id = id;
@@ -26,6 +28,8 @@ public class Customer {
 		this.cpf = cpf;				
 		this.email = email;
 	}
+	 
+	
 	public Customer(int id){
 		this.id = id;
 	}

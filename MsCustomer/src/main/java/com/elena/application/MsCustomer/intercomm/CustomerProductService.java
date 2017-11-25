@@ -1,23 +1,29 @@
 package com.elena.application.MsCustomer.intercomm;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Service("product")
+//@Service("product")
+//@RestController
+@Component
+//@Service
+@Configuration//(defaultAutowire = Autowire.BY_TYPE, defaultLazy = Lazy.FALSE)
 public class CustomerProductService {
+
+	private String id = "";
 	
 	@Autowired
-	@Qualifier(value="product")
 	private  CustomerProductInterface product;
 	
 	public CustomerProductService(){}
 	
-	@Bean
+	@Bean //Bean método somente em classe com anotacao COnfiguration
 	public String getProductsInCustomer(String id) {
 		try {
-			return product.getProductID(id);
+			String produto = product.getProductID("1");//id);
+			return produto;
 			
 
 		} catch (ArrayIndexOutOfBoundsException e) {

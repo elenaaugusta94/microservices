@@ -3,9 +3,6 @@ package com.elena.application.MsCustomer.controller;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,23 +10,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elena.application.MsCustomer.entities.Customer;
-import com.elena.application.MsCustomer.intercomm.CustomerProductService;
+import com.elena.application.MsCustomer.intercomm.CustomerProductInterface;
 
-@ComponentScan(basePackages ="com.elena.application.MsCustomer.intercomm")
+//@ComponentScan("com.elena.application.MsCustomer.intercomm")
 @RestController
+//@RequestMapping("/customer")
 public  class CustomerController {
 
-	//@Autowired	
-	//private CustomerService customer ;
+	@Autowired	
+	private CustomerService customer ;
 	
 	@Autowired 		 
-	@Qualifier(value="product")
-	CustomerProductService product;
+	CustomerProductInterface product;
 	
 	private CustomerController(){}
 	
 	protected Logger logger = Logger.getLogger(CustomerController.class.getName());
 	
+
+	@RequestMapping("/index")
+	@ResponseBody
+	public String index() {
+		return "index";
+	}
 		
 	@RequestMapping("*")
 	public String fallbackMethod() {
@@ -44,13 +47,13 @@ public  class CustomerController {
 		try {
 			Customer c = new Customer(name, cpf, email);
 			System.out.println("Cliente:  "+ c.getName());
-		//	customer.saveCustomer(c);
-			
+			customer.saveCustomer(c);
+			return "Success! ";
 			
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();
 		}
-		return "Success! ";
+		
 
 	}
 
@@ -63,16 +66,16 @@ public  class CustomerController {
 	@RequestMapping("/customer/getCustomerCpf/{cpf}")
 	@ResponseBody
 	public Customer getClientePorCpf(@PathVariable String cpf) {
-		Customer c =null; // customer.findCustomerByCpf(cpf);
+		Customer c = customer.findCustomerByCpf(cpf);
 		return c;
 	}
 	
 	@RequestMapping("/customer/products/{id}")
 	@ResponseBody	
-	@Bean
+	//@Bean
 	 private String productID(@PathVariable("id") String id){
 		try {
-			return product.getProductsInCustomer(id);
+			return product.getProductID(id);//id);
 			
 			
 		} catch (Exception ex) {
@@ -88,4 +91,4 @@ public  class CustomerController {
 	 }
 			
 
-}
+}	

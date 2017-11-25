@@ -13,3 +13,11 @@ eureka:
 ribbon:
   eureka:
     enabled: true
+    
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false

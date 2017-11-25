@@ -121,6 +121,13 @@
 			<artifactId>maven-repository-metadata</artifactId>
 			<version>2.2.1</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-core</artifactId>
+			<version>9.5.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
