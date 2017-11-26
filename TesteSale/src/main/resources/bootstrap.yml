@@ -1,6 +1,6 @@
 spring:
   application:
-    name: MsCustomer
+    name: TesteSale
   cloud:
     config:
       uri: http://localhost:9090

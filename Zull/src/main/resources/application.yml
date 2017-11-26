@@ -18,7 +18,11 @@ zuul:
  
     product: 
       path: /product/**
-      serviceId: MsProduct          
+      serviceId: MsProduct   
+
+    venda: 
+      path: /venda/**
+      serviceId: TesteSale       
 
 ribbon:
   eureka:
