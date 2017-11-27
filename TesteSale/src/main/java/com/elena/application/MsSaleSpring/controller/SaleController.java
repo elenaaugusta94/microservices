@@ -46,13 +46,13 @@ public class SaleController {
 	}
 
 	@RequestMapping("/getProducts")
-	public String getProducts(){
+	public List<String>getProducts(){
 		
 		List<String> produtos = product.getAllProduct();
 		
 		
 		
-		return "produtos";
+		return produtos;
 	}
 	
 	@RequestMapping("/sale")
