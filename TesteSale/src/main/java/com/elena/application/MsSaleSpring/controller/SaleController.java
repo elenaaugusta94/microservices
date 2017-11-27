@@ -1,13 +1,15 @@
 package com.elena.application.MsSaleSpring.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,28 +31,57 @@ public class SaleController {
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
-	private HttpServletRequest p1;
-	private HttpServletResponse p2;
-	
-	CustomerService cs;
 
+	CustomerService cs = new CustomerService();
+
+	@RequestMapping("/login")
+	String login() throws Exception {
+		return "index";
+	}
+
+	@RequestMapping("/service")
+	String service() throws Exception {
+		return "sale";
+	}
+
+	@RequestMapping("/sale")
+	public String greeting(@RequestParam(value = "contents", required = true) String name,
+			Model model) {
+		Map<String,Object> atributos = new HashMap<>();
+		String productsJson = "[]";
+		try {
+			productsJson = product.getAllProduct();
+			atributos.put("productsJson", productsJson);
+		} catch (Exception ex) {
+			model.addAttribute("server_not_available",
+					"Product server not available (" + ex.getClass().getName() + ": " + ex.getMessage() + ")");
+			return "sale";
+		}
+		
+		atributos.put("client_search", true);
+		model.addAllAttributes(atributos);
+		
+		return "sale";
+	}
+
+		
+		
+
+	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
+	ModelAndView index(@PathVariable("id") String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("id", id);
+		modelAndView.setViewName("sale");
+		// return
+		// SaleController.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		return modelAndView;// "sale" ;//"sale";
+	}
 
 	@RequestMapping("/")
 	String index() throws Exception {
 		return "sale";
 	}
 
-	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	ModelAndView index(@PathVariable("id") String id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("id", id);
-        modelAndView.setViewName("sale");
-        //return SaleController.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		return modelAndView;//"sale" ;//"sale";
-	}
-	
-	
 	@RequestMapping("*")
 	String home() {
 		return "falback";
@@ -85,7 +116,5 @@ public class SaleController {
 		String response = restTemplate.getForObject("http://MsCustomer/customer/getCustomers", String.class);
 		return response;
 	}
-
-	
 
 }

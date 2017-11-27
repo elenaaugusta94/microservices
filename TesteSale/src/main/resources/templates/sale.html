@@ -3,31 +3,50 @@
 <head>
 <title>MsSaleSpring</title>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
-integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous"></link>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
 <script>
+		
+		
+angular.module('demo', [])
+.controller('Hello', function($scope, $http) {
+    $http.get('http://MsSale/sale').
+        then(function(response) {
+            $scope.greeting = response.data;
+        });
+});
+		
             window.products = [];
             window.client = null;
-            <c:if test="${jsonProducts != null}">
+          
+          	console.log("Entrou aqui????");
+            <div ng-if="${jsonProducts != null}">
+           
                 window.products = $.parseJSON('${jsonProducts}');
                 if(!(window.products instanceof Array)){
                     window.products = [window.products];
                 }
-            </c:if>
-            
-            
-            <c:if test="${client != null}">
+         
+            </div>
+            <div ng-if="${client != null}">
                 window.client = $.parseJSON('${client}');
-            </c:if>
+            </div>
             var saleApp = angular.module('SaleApp', []);
-            saleApp.controller('SaleController', ['$scope','$window', function ($scope, $window) {
+            saleApp.controller('SaleController2', ['$scope','$window', function ($scope, $window) {
                 $scope.products = window.products;
                 $scope.client = window.client;
                 $scope.cart = {};
@@ -72,7 +91,10 @@ body {
 }
 </style>
 <body>
-
+	<div>
+            <p>The ID is {{sale.productsJson}}</p>
+		<p>The content is {{sale.content}}</p>
+        </div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -81,28 +103,28 @@ body {
 		</div>
 	</nav>
 	<div class="container" ng-app="SaleApp" ng-controller="SaleController">
-		<c:if test="${server_not_available != null}">
+		<div ng-if="${server_not_available != null}">
 			<div class="alert alert-danger">${server_not_available}</div>
-		</c:if>
-		<c:if test="${sale_submitted and success}">
+		</div>
+		<div ng-if="${sale_submitted and success}">
 			<div class="alert alert-success">The sale was successfully
 				registered.</div>
-		</c:if>
-		<c:if test="${sale_submitted and !success}">
+		</div>
+		<div ng-if="${sale_submitted and !success}">
 			<div class="alert alert-danger">Could not register the sale</div>
-		</c:if>
-		<c:if test="${client_search and client == null}">
+		</div>
+		<div ng-if="${client_search and client == null}">
 			<div class="alert alert-danger">Customer not found</div>
-		</c:if>
+		</div>
 		<form action="service" method="post">
-			<input type="hidden" value="ClientController" name="logic" /> <label
+			<input type="hidden" value="CustomerService" name="logic" /> <label
 				for="cpf">Customer CPF:</label>
 			<div class="form-inline">
 				<input name="cpf" id="cpf" class="form-control" /> <input
 					type="submit" class="btn btn-default" id="btSearch" value="send" />
 			</div>
 		</form>
-		<c:if test="${client_search and client != null}">
+		<div ng-if="${client_search and client != null}">
 			<hr>
 			<h3>Customer: {{client.name}} ( {{client.email}} -
 				{{client.cpf}})</h3>
@@ -157,7 +179,7 @@ body {
 					value="register sale" class="btn btn-default" />
 			</form>
 			</hr>
-		</c:if>
+		</div>
 	</div>
 </body>
 </html>

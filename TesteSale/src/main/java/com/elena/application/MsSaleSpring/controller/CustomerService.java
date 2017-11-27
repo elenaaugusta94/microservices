@@ -1,20 +1,22 @@
 package com.elena.application.MsSaleSpring.controller;
 
-import java.io.IOException;
+import java.io.Console;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.elena.application.MsSaleSpring.exception.ServiceException;
 import com.elena.application.MsSaleSpring.intercomm.CustomerInterface;
 import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
 
 @Controller
 public class CustomerService implements Logic {
 	
+
+
 	@Autowired
 	CustomerInterface customer;
 	
@@ -22,8 +24,12 @@ public class CustomerService implements Logic {
 	ProductInterface product;
 	
 	
-	public String executa(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	
+	public String executa(HttpServletRequest req) throws Exception {
+		
 		String clientJson;
+	
+		System.out.println("Entrou aqui no CustomerService??");
 		try {
 			String cpf = req.getParameter("cpf");
 			
@@ -31,7 +37,7 @@ public class CustomerService implements Logic {
 		} catch (Exception ex) {
 			req.setAttribute("server_not_available",
 					"Client server not available (" + ex.getClass().getName() + ": " + ex.getMessage() + ")");
-			return "sale.html";
+			return "sale";
 		}
 		String productsJson = "[]";
 		try {
@@ -39,12 +45,20 @@ public class CustomerService implements Logic {
 		} catch (Exception ex) {
 			req.setAttribute("server_not_available",
 					"Product server not available (" + ex.getClass().getName() + ": " + ex.getMessage() + ")");
-			return "sale.html";
+			return "sale";
 		}
 		req.setAttribute("jsonProducts", productsJson);
 		req.setAttribute("client", clientJson);
 		req.setAttribute("client_search", true);
 		return "sale";
+	}
+
+
+
+	@Override
+	public String executa(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
