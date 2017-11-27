@@ -61,7 +61,7 @@ public class ProductController {
 
 	}
 
-	@RequestMapping("getProducts")
+	@RequestMapping("/product/getProducts")
 	@ResponseBody
 	public List<Product> getAllProducts() {
 

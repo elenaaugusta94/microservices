@@ -1,6 +1,7 @@
 package com.elena.application.MsSaleSpring.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.elena.application.MsSaleSpring.intercomm.CustomerInterface;
 import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
-
+import com.google.gson.JsonParser;
 @Controller
 public class SaleController {
 
@@ -44,13 +45,24 @@ public class SaleController {
 		return "sale";
 	}
 
+	@RequestMapping("/getProducts")
+	public String getProducts(){
+		
+		List<String> produtos = product.getAllProduct();
+		
+		
+		
+		return "produtos";
+	}
+	
 	@RequestMapping("/sale")
 	public String greeting(@RequestParam(value = "contents", required = true) String name,
 			Model model) {
 		Map<String,Object> atributos = new HashMap<>();
 		String productsJson = "[]";
 		try {
-			productsJson = product.getAllProduct();
+			
+			
 			atributos.put("productsJson", productsJson);
 		} catch (Exception ex) {
 			model.addAttribute("server_not_available",

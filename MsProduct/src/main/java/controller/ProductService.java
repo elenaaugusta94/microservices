@@ -35,7 +35,7 @@ public class ProductService {
 
 		try {
 			Product c = productDAO.findById(id);
-			logger.info("Cliente criado com Sucesso!");
+			
 			return c;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
