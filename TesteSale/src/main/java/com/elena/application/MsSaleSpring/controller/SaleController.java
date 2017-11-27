@@ -21,9 +21,10 @@ public class SaleController {
 
 	@Autowired
 	NewsLetterService newsLetter;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
+	
 
 
 	@RequestMapping("/")
@@ -40,17 +41,16 @@ public class SaleController {
 	@ResponseBody
 	public String getClient(@PathVariable("cpf") String cpf) {
 		if (!cpf.isEmpty()) {
-            String clientJson = customer.getCustomerCpf(cpf);
-            if (clientJson.isEmpty()) {
-                return null;
-            } else {
-                return clientJson;
-            }
-        } else {
-            return null;
-        }
-		
-		
+			String clientJson = customer.getCustomerCpf(cpf);
+			if (clientJson.isEmpty()) {
+				return null;
+			} else {
+				return clientJson;
+			}
+		} else {
+			return null;
+		}
+
 	}
 
 	@RequestMapping("/venda/getProduct/{id}")
@@ -67,7 +67,6 @@ public class SaleController {
 		return response;
 	}
 
-	
 	
 
 }

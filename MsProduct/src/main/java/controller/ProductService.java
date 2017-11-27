@@ -24,7 +24,7 @@ public class ProductService {
 		try {
 			productDAO.save(p);
 		
-			logger.info("Cliente criado com Sucesso!");
+			logger.info("Produto criado com Sucesso!");
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new UnsupportedOperationException("Not supported yet.");

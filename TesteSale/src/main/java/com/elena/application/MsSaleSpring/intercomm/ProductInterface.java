@@ -1,5 +1,7 @@
 package com.elena.application.MsSaleSpring.intercomm;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,4 +12,7 @@ public interface ProductInterface {
 
 	@RequestMapping( method = RequestMethod.GET, value="/product/getProduct/{id}")
 	public String getProduct(@PathVariable("id") String id);
+	
+	@RequestMapping( method = RequestMethod.GET, value="/product/getProducts")
+	public String getAllProduct();
 }
