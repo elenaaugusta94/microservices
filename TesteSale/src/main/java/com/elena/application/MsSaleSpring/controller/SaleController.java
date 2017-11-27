@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.elena.application.MsSaleSpring.intercomm.CustomerInterface;
 import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
@@ -36,9 +38,19 @@ public class SaleController {
 
 	@RequestMapping("/")
 	String index() throws Exception {
-		return cs.executa(p1, p2);
+		return "sale";
 	}
 
+	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+	ModelAndView index(@PathVariable("id") String id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("id", id);
+        modelAndView.setViewName("sale");
+        //return SaleController.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		return modelAndView;//"sale" ;//"sale";
+	}
+	
+	
 	@RequestMapping("*")
 	String home() {
 		return "falback";
