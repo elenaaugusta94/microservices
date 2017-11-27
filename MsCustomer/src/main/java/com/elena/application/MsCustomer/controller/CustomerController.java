@@ -56,11 +56,18 @@ public class CustomerController {
 
 	}
 
-	@RequestMapping("/customer/getCustomers")
+	@RequestMapping(value = "getCustomers")
 	@ResponseBody
 	public List<String> getAllCustomers() {
 		return customer.findAllCustomer();
 	}
+	
+	@RequestMapping("/customer/getCustomers")
+	@ResponseBody
+	public List<String> getAllCustomers2() {
+		return customer.findAllCustomer();
+	}
+
 
 	@RequestMapping("/customer/getCustomerCpf/{cpf}")
 	@ResponseBody
