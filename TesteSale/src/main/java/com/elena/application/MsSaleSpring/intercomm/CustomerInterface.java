@@ -11,7 +11,7 @@ public interface CustomerInterface {
 	@RequestMapping( method = RequestMethod.GET, value="/customer/getCustomerCpf/{cpf}")
 	public String getCustomerCpf(@PathVariable("cpf") String cpf);
 	
-	@RequestMapping( method = RequestMethod.GET, value="/customer/getCustomers")
+	@RequestMapping( method = RequestMethod.GET, value="/getCustomers")
 	public String getAllCustomers();
 	
 	

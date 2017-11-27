@@ -14,6 +14,7 @@ namespace MsAuthentication.Controllers
         [HttpPost]
         public bool Authenticate(string username, string password)
         {
+            Console.WriteLine(username+" "+password);
             //User user = UserDAO.GetUserByUsername(username);
             string userLine  = UserDAO.GetUserByUsername(username);
             if(userLine != null){

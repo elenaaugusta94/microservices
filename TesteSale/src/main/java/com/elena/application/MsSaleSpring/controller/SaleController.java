@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.elena.application.MsSaleSpring.intercomm.CustomerInterface;
 import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
-import com.google.gson.JsonParser;
+
 @Controller
 public class SaleController {
 
@@ -45,41 +45,38 @@ public class SaleController {
 		return "sale";
 	}
 
-	@RequestMapping("/getProducts")
-	public List<String>getProducts(){
-		
-		List<String> produtos = product.getAllProduct();
-		
-		
-		
+	/**
+	 * 
+	 * Retorna os produtos atraves do product feign como uma string JSON
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/getProducts", method = RequestMethod.GET)
+	public @ResponseBody String getProducts() {
+		String produtos = product.getAllProduct();
 		return produtos;
 	}
-	
+
 	@RequestMapping("/sale")
-	public String greeting(@RequestParam(value = "contents", required = true) String name,
-			Model model) {
-		Map<String,Object> atributos = new HashMap<>();
+	public String greeting(@RequestParam(value = "contents", required = true) String name, Model model) {
+		Map<String, Object> atributos = new HashMap<>();
 		String productsJson = "[]";
 		try {
-			
-			
+
 			atributos.put("productsJson", productsJson);
 		} catch (Exception ex) {
 			model.addAttribute("server_not_available",
 					"Product server not available (" + ex.getClass().getName() + ": " + ex.getMessage() + ")");
 			return "sale";
 		}
-		
+
 		atributos.put("client_search", true);
 		model.addAllAttributes(atributos);
-		
+
 		return "sale";
 	}
 
-		
-		
-
-	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET)
 	ModelAndView index(@PathVariable("id") String id) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("id", id);
@@ -127,6 +124,15 @@ public class SaleController {
 
 		String response = restTemplate.getForObject("http://MsCustomer/customer/getCustomers", String.class);
 		return response;
+	}
+
+	@RequestMapping("/venda/autenticacao/{user}/{senha}")
+	@ResponseBody
+	public String getAuthentication(@PathVariable("user") String user, @PathVariable("senha") String senha) {
+		String response = restTemplate.postForObject(
+				"http://MsAuthentication/api/authenticate?username=" + user + "&password=" + senha, null, String.class);
+		return response;
+
 	}
 
 }

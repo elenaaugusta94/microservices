@@ -20,57 +20,138 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
 <script>
-		
-		
-angular.module('demo', [])
-.controller('Hello', function($scope, $http) {
-    $http.get('http://MsSale/sale').
-        then(function(response) {
-            $scope.greeting = response.data;
-        });
-});
-		
             window.products = [];
+            
+            console.log(window.products)
             window.client = null;
-          
-          	console.log("Entrou aqui????");
-            <div ng-if="${jsonProducts != null}">
-           
-                window.products = $.parseJSON('${jsonProducts}');
-                if(!(window.products instanceof Array)){
-                    window.products = [window.products];
+
+            var saleApp = angular.module('SaleApp', []).controller('SaleController', ['$scope','$window', '$http','$q', function ($scope, $window, $http, $q) {
+                $scope.products = [];
+
+                /*
+                 * Variáveis do sistema (erro de server, se achou ou não o cliente...)
+                 */
+                $scope.system_variables = {};
+                $scope.system_variables.server_not_available = false;
+                $scope.system_variables.sale_submitted = false;
+                $scope.system_variables.client_search = false;
+                $scope.system_variables.client_found = false;
+                
+                $scope.client = {};
+                $scope.client.cpf = "";
+                
+                
+                //Funcao para converter um numeral em String para inteiro
+                $scope.parseInt = function(number) {
+                    return parseInt(number, 10);
                 }
-         
-            </div>
-            <div ng-if="${client != null}">
-                window.client = $.parseJSON('${client}');
-            </div>
-            var saleApp = angular.module('SaleApp', []);
-            saleApp.controller('SaleController2', ['$scope','$window', function ($scope, $window) {
-                $scope.products = window.products;
-                $scope.client = window.client;
+                
+                $scope.selection = {};
+                 
+                $scope.productSelected = {};
+                $scope.qtStock = 0;
+                $scope.qt = 0;
+                
+                /*
+                 * FUnção para pegar cliente por CPF
+                 * @returns {undefined}
+                 */
+                $scope.getClientByCPF = function(){
+                    console.log("Searching by " + $scope.client.cpf);
+                    $http({
+                        method: 'GET',
+                        url: 'http://localhost:9095/venda/getCustomerCpf/' + $scope.client.cpf
+                    }).then(function (success){
+                        console.log(success);
+                        $scope.client.dados = success.data;
+                        if(success.status === 200){
+                            $scope.system_variables.client_search = false;
+                            $scope.system_variables.client_found = true;
+                        } else {
+                            $scope.system_variables.client_search = true;
+                            $scope.system_variables.client_found = false;
+                        }
+                    }, function (error){
+                        console.log(error);
+                        $scope.system_variables.client_search = true;
+
+                    });
+                };
+                
+                /*
+                 * Função para processar uma compra
+                 */
+                $scope.processPurchase = function(){
+                    //AQUI PROCESSA A VENDA, E FAZ UMA CHAMADA AOS MÉTODOS PARA ATUALIZAR A QUANTIDADE DOS PRODUTOS...
+                    //VOCÊ PEGA AS QUANTIDADES DO CART, QUE É O CARINHO, E AS ACESSA DIRETAMENTE, ASSIM NÃO PRECISA PASSAR PARAMETROS
+                    //AI VC FAZ A REQUISICAO GET PARA O ENDERECO QUE VC COLOCOU. EXEMPLO:
+                    
+                    $http({
+                        method:'GET',
+                        url: 'http://localhost:9095/atualizaProducts/' + $scope.quantidadeASerAtualizada + '/' + $scope.IDdoproduto
+                    }).then(function (succes){ //Deu certo :)
+                        console.log(success);
+                        //FAZ AS ACOES NECESSARIAS AQUI
+                    },function(error){ //DEU ERRADO :(
+                        console.log(error);
+                    });
+                };
+                
+                /*
+                 * Carrega os produtos. Não coloquei em uma função, pois como tem que chamar sempre, é melhor já executar direto
+                 */
+                $http({
+                     method: 'GET',
+                     url: 'http://localhost:9095/getProducts'
+                  }).then(function (success){
+                        console.log(success);
+                        $scope.products = success.data;
+                        console.log($scope.products)
+                  },function (error){
+                         console.log(error);
+                  });
+  
+              
+                /*
+                 * Variáveis do carrinho
+                 */
                 $scope.cart = {};
                 $scope.total = 0;
+                
+                /*
+                 * Função para adicionar um produto no carrinho
+                 */
                 $scope.addProduct = function(){
-                    if(!($scope.cart[$scope.productSelected.id])){
-                        if(isNaN($scope.qt)){
+                    if(!($scope.cart[$scope.productSelected.product.id])){
+                        if(isNaN($scope.selection.qt)){
                             alert('Invalid quantity');
                         }else{
-                            var id = $scope.productSelected.id;
-                            var name = $scope.productSelected.name;
-                            var price = parseFloat($scope.productSelected.value);
-                            var qt = $scope.qt;
-                            $scope.cart[$scope.productSelected.id] = {id: id, name: name, qt: qt, price: price};
+                            var id = $scope.productSelected.product.id;
+                            var name = $scope.productSelected.product.name;
+                            var price = parseFloat($scope.productSelected.product.value);
+                            var qt = $scope.selection.qt;
+                            $scope.cart[$scope.productSelected.product.id] = {id: id, name: name, qt: qt, price: price};
                             $scope.total += qt * price;
                         }
                     }
                 }
+                
+                /*
+                 * Função para removr um produto do carrinho
+                 */
                 $scope.removeProduct = function(id){
                     $scope.total -= $scope.cart[id].qt * $scope.cart[id].price;
                     delete $scope.cart[id];
                 }
+                
+                /*
+                 * Função para selecionar um item
+                 */
                 $scope.selectedItemChanged = function(){
-                    $scope.qtStock = $scope.productSelected.number;
+                    console.log($scope.products);
+                    console.log($scope.productSelected.product);
+                    $scope.qtStock = $scope.productSelected.product.number;
+                    //$scope.qtStock = $scope.productSelected.number;
                 }
             }]);
         </script>
@@ -91,10 +172,6 @@ body {
 }
 </style>
 <body>
-	<div>
-            <p>The ID is {{sale.productsJson}}</p>
-		<p>The content is {{sale.content}}</p>
-        </div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -103,46 +180,45 @@ body {
 		</div>
 	</nav>
 	<div class="container" ng-app="SaleApp" ng-controller="SaleController">
-		<div ng-if="${server_not_available != null}">
-			<div class="alert alert-danger">${server_not_available}</div>
+		<div ng-if="system_variables.server_not_available">
+			<div class="alert alert-danger">{{system_variables.server_not_available}}</div>
 		</div>
-		<div ng-if="${sale_submitted and success}">
+		<div ng-if="system_variables.sale_submitted ">
 			<div class="alert alert-success">The sale was successfully
 				registered.</div>
 		</div>
-		<div ng-if="${sale_submitted and !success}">
+		<div ng-if="system_variables.sale_submitted ">
 			<div class="alert alert-danger">Could not register the sale</div>
 		</div>
-		<div ng-if="${client_search and client == null}">
+		<div ng-if="system_variables.client_search ">
 			<div class="alert alert-danger">Customer not found</div>
 		</div>
-		<form action="service" method="post">
-			<input type="hidden" value="CustomerService" name="logic" /> <label
-				for="cpf">Customer CPF:</label>
+		<!--<form action="service" method="post">-->
+			 <label>Customer CPF: {{client.cpf}}</label>
 			<div class="form-inline">
-				<input name="cpf" id="cpf" class="form-control" /> <input
-					type="submit" class="btn btn-default" id="btSearch" value="send" />
-			</div>
-		</form>
-		<div ng-if="${client_search and client != null}">
+				<input name="cpf" id="cpf" class="form-control" ng-model="client.cpf"/> 
+                                <button ng-click="getClientByCPF()" class="btn btn-default">Search</button>
+			</div>                    
+		<!--</form>-->
+		<div ng-if="system_variables.client_found">
 			<hr>
-			<h3>Customer: {{client.name}} ( {{client.email}} -
-				{{client.cpf}})</h3>
+			<h3>Customer: {{client.dados.name}} ( {{client.dados.email}} -
+				{{client.dados.cpf}})</h3>
 
 			<div>
 				<div class="form-group col-md-3">
-					<label>Product</label> <select id="product" class="form-control"
-						ng-model="productSelected" ng-options="p.name for p in products"
+					<label>Product: {{productSelected.product.name}}</label> <select id="product" class="form-control"
+						ng-model="productSelected.product" ng-options="p as p.name + ' - ' + p.description for p in products track by p.id"
 						ng-change='selectedItemChanged()'>
 					</select>
 				</div>
 				<div class="form-group col-md-1">
-					<label>Qt Stock</label> <input class="form-control" type="number"
+					<label>Stock</label> <input class="form-control" type="number"
 						ng-model="qtStock" disabled="disabled" />
 				</div>
 				<div class="form-group col-md-1">
-					<label>Qt</label> <input class="form-control" type="number"
-						ng-model="qt" min="1" max="{{qtStock}}" />
+					<label>Quantity</label> <input class="form-control" type="number"
+						ng-model="selection.qt" min="1" max="{{qtStock}}" />
 				</div>
 				<div class="form-group col-md-2">
 					<label>&nbsp;</label>
@@ -150,7 +226,7 @@ body {
 						ng-click="addProduct()">Add in cart</button>
 				</div>
 			</div>
-			<form action="service" method="post">
+			<!--<form action="service" method="post">-->
 				<input type="hidden" name="logic" value="SaleController" />
 				<table class="table">
 					<thead>
@@ -175,9 +251,8 @@ body {
 						</tr>
 					</tbody>
 				</table>
-				<span><b>Total: $ {{total}}</b></span><br /> <input type="submit"
-					value="register sale" class="btn btn-default" />
-			</form>
+                                <span><b>Total: $ {{total}}</b></span><br /> <button ng-click="processPurchase()" class="btn btn-default">Purchase</button>
+			<!--</form>-->
 			</hr>
 		</div>
 	</div>

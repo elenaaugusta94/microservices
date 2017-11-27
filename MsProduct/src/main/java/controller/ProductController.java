@@ -22,7 +22,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import DAO.ProductDAO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.Product;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
 
 @RestController
 public class ProductController {
@@ -61,13 +66,25 @@ public class ProductController {
 
 	}
 
-	@RequestMapping("/product/getProducts")
+        /**
+         * Mudei o mapping, pois o mapping original (/product/getProducts/) não estava funcionando
+         * @return
+         * @throws IOException 
+         */
+	@RequestMapping(value = "getProducts")//, produces = "application/json")
 	@ResponseBody
-	public List<Product> getAllProducts() {
-
-		return productService.getAllProducts();
+	public List<Product> getAllProducts() throws IOException {
+            return productService.getAllProducts();
+//            List<Product> lista = productService.getAllProducts();
+//                if(lista.size() > 0)
+//                    //return Integer.toString(lista.size());
+//                    return writeListToJsonArray(productService.getAllProducts());
+//                else
+//                    return "forward:/index";
 
 	}
+	
+	
 
 	// @RequestMapping(value = "/venda", method = RequestMethod.POST)
 	// @ResponseBody
@@ -118,5 +135,21 @@ public class ProductController {
 		productName =productService.findProductByID(id);
 		return productName.getName();
 	}
+        
+        /**
+         * Converte uma lista em um JSON (fonte: https://stackoverflow.com/questions/13514570/jackson-best-way-writes-a-java-list-to-a-json-array)
+         * @param lista
+         * @return lista convertida para JSON
+         * @throws IOException 
+         */
+        public String writeListToJsonArray(List<Product> lista) throws IOException {  
+   
+            final StringWriter sw =new StringWriter();
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(sw, lista);
+
+            sw.close(); 
+            return sw.toString();
+        }
 
 }
