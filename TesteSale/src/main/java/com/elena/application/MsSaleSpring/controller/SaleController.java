@@ -39,7 +39,18 @@ public class SaleController {
 	@RequestMapping("/venda/getCustomerCpf/{cpf}")
 	@ResponseBody
 	public String getClient(@PathVariable("cpf") String cpf) {
-		return customer.getCustomerCpf(cpf);
+		if (!cpf.isEmpty()) {
+            String clientJson = customer.getCustomerCpf(cpf);
+            if (clientJson.isEmpty()) {
+                return null;
+            } else {
+                return clientJson;
+            }
+        } else {
+            return null;
+        }
+		
+		
 	}
 
 	@RequestMapping("/venda/getProduct/{id}")

@@ -10,4 +10,27 @@ public interface CustomerInterface {
 	
 	@RequestMapping( method = RequestMethod.GET, value="/customer/getCustomerCpf/{cpf}")
 	public String getCustomerCpf(@PathVariable("cpf") String cpf);
+	
+	@RequestMapping( method = RequestMethod.GET, value="/customer/getCustomers")
+	public String getAllCustomers();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
