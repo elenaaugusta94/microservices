@@ -27,12 +27,13 @@ public class SaleController {
 	@Autowired
 	ProductInterface product;
 
-	
+	//@Autowired
+	//NewsLetterService newsLetter;
 
 	@Autowired
 	private RestTemplate restTemplate;
 
-	CustomerService cs = new CustomerService();
+	//CustomerService cs = new CustomerService();
 
 	@RequestMapping("/login")
 	String login() throws Exception {
@@ -58,7 +59,7 @@ public class SaleController {
 
 	
 	@RequestMapping(value = { "/sale" }, method = RequestMethod.GET)
-	ModelAndView index( ) {
+	ModelAndView index2( ) {
 		ModelAndView modelAndView = new ModelAndView();
 	//	modelAndView.addObject("id", id);
 	//	modelAndView.setViewName("sale");
@@ -66,7 +67,11 @@ public class SaleController {
 		return modelAndView;// "sale" ;//"sale";
 	}
 
-	
+	@RequestMapping("/")
+	String index() throws Exception {
+		return "sale";
+	}
+
 	@RequestMapping("*")
 	String home() {
 		return "falback";
@@ -110,5 +115,11 @@ public class SaleController {
 		return response;
 
 	}
-
+	@RequestMapping("/atualizaProducts/{qnt}/{id}")
+	@ResponseBody
+	public String productUpdate(@PathVariable("qnt") int qnt, @PathVariable("id") String id){
+		String response = restTemplate.postForObject(
+				"http://MsProduct/updateProduct/" + qnt + "/" + id, null, String.class);
+		return response;
+	}
 }

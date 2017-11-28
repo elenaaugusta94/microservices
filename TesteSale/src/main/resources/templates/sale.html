@@ -60,7 +60,7 @@
                     console.log("Searching by " + $scope.client.cpf);
                     $http({
                         method: 'GET',
-                        url: 'http://localhost:9095/venda/getCustomerCpf/' + $scope.client.cpf
+                        url: 'http://localhost:9097/venda/getCustomerCpf/' + $scope.client.cpf
                     }).then(function (success){
                         console.log(success);
                         $scope.client.dados = success.data;
@@ -81,16 +81,18 @@
                 /*
                  * Função para processar uma compra
                  */
-                $scope.processPurchase = function(){
-                    //AQUI PROCESSA A VENDA, E FAZ UMA CHAMADA AOS MÉTODOS PARA ATUALIZAR A QUANTIDADE DOS PRODUTOS...
-                    //VOCÊ PEGA AS QUANTIDADES DO CART, QUE É O CARINHO, E AS ACESSA DIRETAMENTE, ASSIM NÃO PRECISA PASSAR PARAMETROS
-                    //AI VC FAZ A REQUISICAO GET PARA O ENDERECO QUE VC COLOCOU. EXEMPLO:
+                $scope.quantidadeASerAtualizada={};
+                $scope.IDdoproduto={};
+                
+                $scope.processPurchase = function(quantidadeASerAtualizada,IDdoproduto ){
+                    
                     
                     $http({
                         method:'GET',
-                        url: 'http://localhost:9095/atualizaProducts/' + $scope.quantidadeASerAtualizada + '/' + $scope.IDdoproduto
+                        url: 'http://localhost:9097/atualizaProducts/' + $scope.quantidadeASerAtualizada + '/' + $scope.IDdoproduto
                     }).then(function (succes){ //Deu certo :)
                         console.log(success);
+                    
                         //FAZ AS ACOES NECESSARIAS AQUI
                     },function(error){ //DEU ERRADO :(
                         console.log(error);
@@ -98,11 +100,11 @@
                 };
                 
                 /*
-                 * Carrega os produtos. Não coloquei em uma função, pois como tem que chamar sempre, é melhor já executar direto
+                 * Carrega os produtos. 
                  */
                 $http({
                      method: 'GET',
-                     url: 'http://localhost:9095/getProducts'
+                     url: 'http://localhost:9097/getProducts'
                   }).then(function (success){
                         console.log(success);
                         $scope.products = success.data;
@@ -117,6 +119,7 @@
                  */
                 $scope.cart = {};
                 $scope.total = 0;
+               
                 
                 /*
                  * Função para adicionar um produto no carrinho

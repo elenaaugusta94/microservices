@@ -57,5 +57,9 @@ public class ProductService {
 		
 	}
 	
+	public Product findOneProduct(String id){
+		return productDAO.findOne(id);
+	}
+	
 	
 }

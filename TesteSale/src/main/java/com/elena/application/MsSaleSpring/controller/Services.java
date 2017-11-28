@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.elena.application.MsSaleSpring.exception.ServiceException;
 import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
 
 public class Services {
@@ -13,7 +12,7 @@ public class Services {
 	ProductInterface product;
 	
 	
-	public boolean serviceUpdateStock(String ids[], String qtds[]) throws IOException, ServiceException {
+	public boolean serviceUpdateStock(String ids[], String qtds[]) throws IOException {
         StringBuilder urlParameters = new StringBuilder("");
         urlParameters.append("id=").append(ids[0]);
         for (int i = 1; i < ids.length; i++) {
