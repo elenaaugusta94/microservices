@@ -27,8 +27,7 @@ public class SaleController {
 	@Autowired
 	ProductInterface product;
 
-	@Autowired
-	NewsLetterService newsLetter;
+	
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -57,40 +56,17 @@ public class SaleController {
 		return produtos;
 	}
 
-	@RequestMapping("/sale")
-	public String greeting(@RequestParam(value = "contents", required = true) String name, Model model) {
-		Map<String, Object> atributos = new HashMap<>();
-		String productsJson = "[]";
-		try {
-
-			atributos.put("productsJson", productsJson);
-		} catch (Exception ex) {
-			model.addAttribute("server_not_available",
-					"Product server not available (" + ex.getClass().getName() + ": " + ex.getMessage() + ")");
-			return "sale";
-		}
-
-		atributos.put("client_search", true);
-		model.addAllAttributes(atributos);
-
-		return "sale";
-	}
-
-	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET)
-	ModelAndView index(@PathVariable("id") String id) {
+	
+	@RequestMapping(value = { "/sale" }, method = RequestMethod.GET)
+	ModelAndView index( ) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("id", id);
-		modelAndView.setViewName("sale");
-		// return
-		// SaleController.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	//	modelAndView.addObject("id", id);
+	//	modelAndView.setViewName("sale");
+		
 		return modelAndView;// "sale" ;//"sale";
 	}
 
-	@RequestMapping("/")
-	String index() throws Exception {
-		return "sale";
-	}
-
+	
 	@RequestMapping("*")
 	String home() {
 		return "falback";
