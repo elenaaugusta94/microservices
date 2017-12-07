@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value="MsCustomer", configuration = FeignConfiguration.class)
 public interface CustomerInterface {
 	
-	@RequestMapping( method = RequestMethod.GET, value="/customer/getCustomerCpf/{cpf}")
+	@RequestMapping( method = RequestMethod.GET, value="/getCustomerCpf/{cpf}")
 	public String getCustomerCpf(@PathVariable("cpf") String cpf);
 	
 	@RequestMapping( method = RequestMethod.GET, value="/getCustomers")
