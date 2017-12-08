@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import communicationChecker.CommunicationChecker;
 import communicationChecker.drift.ArchitecturalDrift;
-import communicationExtractor.CommunicateDefinition;
+import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;

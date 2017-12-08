@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import communicationExtractor.CommunicateDefinition;
-
 public class MicroservicesSystem {
 
 	private HashMap<MicroserviceDefinition, Set<ConstraintDefinition>> mapConstraints;

@@ -3,10 +3,10 @@ package unitTests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import communicationExtractor.CommunicateDefinition;
-import communicationExtractor.CommunicationExtractor;
+import entities.CommunicateDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
+import msdcl.communicationExtractor.CommunicationExtractor;
 
 public class CommunicationExtractorTest {
 

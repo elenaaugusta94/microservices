@@ -1,6 +1,4 @@
-package communicationExtractor;
-
-import entities.MicroserviceDefinition;
+package entities;
 
 public class CommunicateDefinition {
 

@@ -9,14 +9,14 @@ import java.util.Set;
 
 import communicationChecker.CommunicationChecker;
 import communicationChecker.drift.ArchitecturalDrift;
-import communicationExtractor.CommunicateDefinition;
-import communicationExtractor.CommunicationExtractor;
-import communicationExtractor.Pi_DCL;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import enums.Constraint;
 import fileManager.InputManager;
 import fileManager.OutputManager;
+import msdcl.communicationExtractor.CommunicationExtractor;
+import msdcl.communicationVerify.Pi_DCL;
+import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 import pidclcheck.exception.ParseException;
 

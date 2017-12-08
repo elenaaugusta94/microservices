@@ -1,6 +1,6 @@
 package communicationChecker.drift;
 
-import communicationExtractor.CommunicateDefinition;
+import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 
 public class WarningConstraint extends ArchitecturalDrift{

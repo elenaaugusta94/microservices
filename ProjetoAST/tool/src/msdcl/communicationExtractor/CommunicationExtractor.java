@@ -1,4 +1,4 @@
-package communicationExtractor;
+package msdcl.communicationExtractor;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import entities.CommunicateDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import util.Util;
@@ -28,6 +29,13 @@ public class CommunicationExtractor {
 
 	public static CommunicationExtractor getInstance() {
 		return instance;
+	}
+	
+	public CommunicateDefinition extractCommunication() {
+		
+		
+		return null;
+		
 	}
 
 	public CommunicateDefinition extractCommunicationFromString(String line, MicroserviceDefinition currentService, MicroservicesSystem system){

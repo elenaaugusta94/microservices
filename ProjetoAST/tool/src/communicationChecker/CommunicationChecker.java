@@ -8,10 +8,10 @@ import communicationChecker.drift.AbsenceDependencyConstraint;
 import communicationChecker.drift.ArchitecturalDrift;
 import communicationChecker.drift.DivergenceDependencyConstraint;
 import communicationChecker.drift.WarningConstraint;
-import communicationExtractor.CommunicateDefinition;
 
 import java.util.Set;
 
+import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;

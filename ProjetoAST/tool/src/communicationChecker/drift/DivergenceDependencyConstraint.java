@@ -2,7 +2,7 @@ package communicationChecker.drift;
 
 import com.sun.accessibility.internal.resources.accessibility;
 
-import communicationExtractor.CommunicateDefinition;
+import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 
 public class DivergenceDependencyConstraint extends ArchitecturalDrift{
