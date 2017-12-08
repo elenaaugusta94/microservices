@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import entities.CommunicateDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
+import msdcl.ast.MsDCLDependencyVisitor;
 import util.Util;
 
 public class CommunicationExtractor {
@@ -40,6 +41,7 @@ public class CommunicationExtractor {
 
 	public CommunicateDefinition extractCommunicationFromString(String line, MicroserviceDefinition currentService, MicroservicesSystem system){
 		Matcher matcher = this.urlPattern.matcher(line);
+		
 		if(matcher.find()){
 			String stringMatched = matcher.group();
 			Matcher protocolMatched = this.protocolPattern.matcher(stringMatched);

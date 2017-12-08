@@ -1,16 +1,12 @@
 package communicationChecker;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import communicationChecker.drift.AbsenceDependencyConstraint;
 import communicationChecker.drift.ArchitecturalDrift;
 import communicationChecker.drift.DivergenceDependencyConstraint;
 import communicationChecker.drift.WarningConstraint;
-
-import java.util.Set;
-
 import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 import entities.MicroserviceDefinition;
@@ -29,15 +25,7 @@ public class CommunicationChecker {
 		return instance;
 	}
 	
-	private class ClassifiedCommunicate{
-		public boolean canCommunicate;
-		public ConstraintDefinition associatedConstraint;
-		
-		public ClassifiedCommunicate(boolean canCommunicate, ConstraintDefinition associatedConstraint){
-			this.canCommunicate = canCommunicate;
-			this.associatedConstraint = associatedConstraint;
-		}
-	}
+	
 	
 	//checa localmente se um microservico pode se comunicar com outro
 	private ClassifiedCommunicate canCommunicateLocal(CommunicateDefinition communicate, MicroservicesSystem system){

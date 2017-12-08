@@ -49,8 +49,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 
 			this.className = unit.getParent().getElementName() + "."
 					+ unit.getElementName().substring(0, unit.getElementName().length() - 5);
-			ASTParser parser = ASTParser.newParser(AST.JLS4); // It was JSL3, but it
-																// is now deprecated
+			ASTParser parser = ASTParser.newParser(AST.JLS4); 
 			parser.setKind(ASTParser.K_COMPILATION_UNIT);
 			parser.setSource(unit);
 			parser.setResolveBindings(true);

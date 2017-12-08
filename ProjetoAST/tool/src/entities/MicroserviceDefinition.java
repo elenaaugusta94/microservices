@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Set;
-
 public class MicroserviceDefinition {
 
 	private String name;
