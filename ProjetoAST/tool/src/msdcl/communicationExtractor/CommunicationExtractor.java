@@ -16,7 +16,9 @@ import entities.CommunicateDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import msdcl.ast.MsDCLDependencyVisitor;
-import msdcl.dependencies.Dependency;
+import msdcl.dependencies.ClassAnnotationDependency;
+import msdcl.dependencies.FieldAnnotationDependency;
+import msdcl.dependencies.MethodAnnotationDependency;
 import msdcl.exception.MsDCLException;
 import util.Util;
 
@@ -74,6 +76,7 @@ public class CommunicationExtractor {
 
 	private Set<CommunicateDefinition> extractCommunicationsFromFile(File f, MicroserviceDefinition caller,
 			MicroservicesSystem system) throws IOException {
+		
 		String filePath = f.getAbsolutePath();	
 		System.out.println("File Path: " + filePath);
 		Set<CommunicateDefinition> communications = new HashSet<>();
@@ -95,27 +98,62 @@ public class CommunicationExtractor {
 	public Set<CommunicateDefinition> extractCommunicationFromFiles(File f, MicroserviceDefinition caller, 
 			MicroservicesSystem system) throws IOException, MsDCLException{
 		
-			MsDCLDependencyVisitor visit = new MsDCLDependencyVisitor();
+			MsDCLDependencyVisitor visitor = new MsDCLDependencyVisitor();
 			String filePath = f.getAbsolutePath();
 			filePath = f.getAbsolutePath();
+			String s = f.getName();
 			if(f.isFile()) {
 				
-				System.out.println("File Path: " + filePath);				
+			//	System.out.println("File Path: " + filePath);				
 				String service = Util.readFileToCharArray(filePath);
-				visit = new MsDCLDependencyVisitor(service);
+				visitor = new MsDCLDependencyVisitor(s, service);
 				
-			}		
-			ArrayList<Dependency> dependencies = new ArrayList<>();
-			for(Dependency d: dependencies) {
-				System.out.println("Class origem: " + d.getNameClass1() +
-						"Class destino: " + d.getNameClass2() +
-						"Tipo de dependencia: " + d.getDependencyType().getValue());
-			}
+			}	
 			
+			
+			getAnnotations(visitor);
 		
 			
 				return null;
 	}
+	
+	public void getAnnotations(MsDCLDependencyVisitor visitor) {
+		
+		HashMap<String, ArrayList > dependencies2 = visitor.getDependencies2();
+		
+		for(String nameClass : dependencies2.keySet()) {
+			if (!dependencies2.get(nameClass).isEmpty()) {				
+				
+				for (Object d : dependencies2.get(nameClass)) {
+					
+					
+					if(d instanceof FieldAnnotationDependency) {
+					//	if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired")) {
+							System.out.println("clas1 : "+((FieldAnnotationDependency) d).getNameClass1());
+							System.out.println("class2: "+((FieldAnnotationDependency) d).getNameClass2());
+							System.out.println("field: "+((FieldAnnotationDependency) d).getNameField());
+							System.out.println("line: "+((FieldAnnotationDependency) d).getPosition());
+							System.out.println("length: "+((FieldAnnotationDependency) d).getLength());
+							//System.out.println(((FieldAnnotationDependency) d).toString());
+						//}
+					}
+					else if(d instanceof MethodAnnotationDependency) {
+						//if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired"))
+							System.out.println(((MethodAnnotationDependency) d).toString());
+					}
+					else if(d instanceof ClassAnnotationDependency) {
+						//if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired"))
+							System.out.println(((ClassAnnotationDependency) d).toString());
+					}
+				}
+				System.out.println();
+			}
+				
+
+		}
+	}
+	
+	
 	
 	public Set<CommunicateDefinition> extractCommunicationsFromService(MicroserviceDefinition caller, MicroservicesSystem system) throws IOException, MsDCLException {
 		Set<CommunicateDefinition> accesses = new HashSet<>();
@@ -124,7 +162,8 @@ public class CommunicationExtractor {
 		
 		for (File f : javaFiles) {
 			System.out.println("f:  "+ f.getName());
-			accesses.addAll(extractCommunicationFromFiles(f, caller, system));
+			extractCommunicationFromFiles(f, caller, system);
+			//accesses.addAll();
 		}
 		return accesses;
 	}

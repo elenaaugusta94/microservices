@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elena.application.MsCustomer.entities.Customer;
 import com.elena.application.MsCustomer.intercomm.CustomerProductInterface;
 
-//@ComponentScan("com.elena.application.MsCustomer.intercomm")
 @RestController
-// @RequestMapping("/customer")
 public class CustomerController {
 
 	@Autowired

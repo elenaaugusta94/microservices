@@ -17,6 +17,13 @@ public abstract class Dependency {
 		this.position = position;
 		this.offset = offset;
 	}
+public Dependency( String nameClass2, Integer position, Integer offset, Integer length) {
+				
+		this.nameClass2 = nameClass2;
+		this.length = length;
+		this.position = position;
+		this.offset = offset;
+	}
 	public String getNameClass1() {
 		return nameClass1;
 	}
