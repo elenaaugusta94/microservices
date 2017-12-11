@@ -16,7 +16,7 @@ MsCustomer: http://localhost:9000; ../toyexample/MsCustomer; Java
 	only Controller can-depend DAO
 	Controller must-useannotation org.springframework.stereotype.Controller
 	only DAO can-useannotation JPA
-MsSale: http://localhost:8086; ../toyexample/MsSale; Java
+MsSale: http://localhost:8086; ../toyexample/TesteSale; Java
 	module Controller: java.controller.*
 	module Services: java.services.*
 	Controller must-depend Service

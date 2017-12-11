@@ -1,11 +1,11 @@
 package msdcl.ast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -36,11 +36,17 @@ import msdcl.exception.MsDCLException;
 
 public class MsDCLDependencyVisitor extends ASTVisitor {
 
-	private List<Dependency> dependencies;
-
+	private ArrayList<Dependency> dependencies;
 	private ICompilationUnit unit;
+	private CompilationUnit compUnit;
 	private CompilationUnit fullClass;
 	private String className;
+	
+
+
+	public MsDCLDependencyVisitor() {
+		this.unit = unit;
+	}
 
 	public MsDCLDependencyVisitor(ICompilationUnit unit) throws MsDCLException {
 		try {
@@ -49,19 +55,54 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 
 			this.className = unit.getParent().getElementName() + "."
 					+ unit.getElementName().substring(0, unit.getElementName().length() - 5);
-			ASTParser parser = ASTParser.newParser(AST.JLS4); 
+
+			ASTParser parser = ASTParser.newParser(AST.JLS4);
 			parser.setKind(ASTParser.K_COMPILATION_UNIT);
 			parser.setSource(unit);
 			parser.setResolveBindings(true);
-
+			
+			
 			this.fullClass = (CompilationUnit) parser.createAST(null); // parse
+
 			this.fullClass.accept(this);
 		} catch (Exception e) {
 			throw new MsDCLException(e, unit);
 		}
 	}
 
-	public List<Dependency> getDependencies() {
+	public MsDCLDependencyVisitor(String str) throws MsDCLException {
+		try {
+			System.out.println("O que chegou aqui senhor: "+ str);
+			this.dependencies = new ArrayList<Dependency>();
+			
+			ASTParser parser = ASTParser.newParser(AST.JLS4);
+			parser.setResolveBindings(true);
+			parser.setStatementsRecovery(true);
+			parser.setBindingsRecovery(true);
+			parser.setSource(str.toCharArray());
+			parser.setKind(ASTParser.K_COMPILATION_UNIT);
+			
+			fullClass = (CompilationUnit) parser.createAST(null);
+			parser.setSource(str.toCharArray());
+			 
+			System.out.println(fullClass.getLineNumber(34));
+		//	this.unit = (ICompilationUnit) parser.createAST(null);
+		//	 CompilationUnit ast3 = parseCompilationUnitAst3(fullClass);
+
+			System.out.println(unit.getElementName());
+			this.className = unit.getParent().getElementName() + "."
+					+ unit.getElementName().substring(0, unit.getElementName().length() - 5);
+			System.out.println("className: " + className);
+			
+			this.fullClass.accept(this);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new MsDCLException(e, unit);
+		}
+	}
+
+	public ArrayList<Dependency> getDependencies() {
 		return dependencies;
 	}
 
@@ -72,6 +113,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 	@Override
 	public boolean visit(TypeDeclaration node) {// visita todas as declarações em uma classe
 		try {
+
 			IType type = (IType) unit.getTypes()[0];
 			ITypeHierarchy typeHierarchy = type.newSupertypeHierarchy(null);
 			IType[] typeSuperinter = typeHierarchy.getAllInterfaces();
@@ -177,7 +219,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -189,22 +231,25 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 		case ASTNode.METHOD_DECLARATION:
 			MethodDeclaration md = (MethodDeclaration) relevantParent;
 
-			this.dependencies.add(new DeclareVariableDependency(this.className, this.getTargetClassName(node.getType()
-					.resolveBinding()), fullClass.getLineNumber(node.getStartPosition()), node.getType().getStartPosition(), node.getType()
-					.getLength(), md.getName().getIdentifier(), ((VariableDeclarationFragment) node.fragments().get(0)).getName()
-					.getIdentifier()));
+			this.dependencies.add(new DeclareVariableDependency(this.className,
+					this.getTargetClassName(node.getType().resolveBinding()),
+					fullClass.getLineNumber(node.getStartPosition()), node.getType().getStartPosition(),
+					node.getType().getLength(), md.getName().getIdentifier(),
+					((VariableDeclarationFragment) node.fragments().get(0)).getName().getIdentifier()));
 
 			break;
 		case ASTNode.INITIALIZER:
-			this.dependencies.add(new DeclareVariableDependency(this.className, this.getTargetClassName(node.getType()
-					.resolveBinding()), fullClass.getLineNumber(node.getStartPosition()), node.getType().getStartPosition(), node.getType()
-					.getLength(), "initializer static block", ((VariableDeclarationFragment) node.fragments().get(0)).getName()
-					.getIdentifier()));
+			this.dependencies.add(new DeclareVariableDependency(this.className,
+					this.getTargetClassName(node.getType().resolveBinding()),
+					fullClass.getLineNumber(node.getStartPosition()), node.getType().getStartPosition(),
+					node.getType().getLength(), "initializer static block",
+					((VariableDeclarationFragment) node.fragments().get(0)).getName().getIdentifier()));
 			break;
 		}
 
 		return true;
 	}
+
 	private String getTargetClassName(ITypeBinding type) {
 		String result = "";
 		if (type != null) {
@@ -229,12 +274,15 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 		}
 		return result;
 	}
+
+	
+
 	private ASTNode getRelevantParent(final ASTNode node) {
 		for (ASTNode aux = node; aux != null; aux = aux.getParent()) {
 			switch (aux.getNodeType()) {
 			case ASTNode.FIELD_DECLARATION:
 			case ASTNode.METHOD_DECLARATION:
-			//case ASTNode.INITIALIZER:
+				// case ASTNode.INITIALIZER:
 				return aux;
 			}
 		}

@@ -16,12 +16,13 @@ import fileManager.InputManager;
 import fileManager.OutputManager;
 import msdcl.communicationExtractor.CommunicationExtractor;
 import msdcl.communicationVerify.Pi_DCL;
+import msdcl.exception.MsDCLException;
 import entities.CommunicateDefinition;
 import entities.ConstraintDefinition;
 import pidclcheck.exception.ParseException;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MsDCLException {
 		try {
 			InputManager inputManager = new InputManager();
 			MicroservicesSystem system = inputManager.readFile(new File("constraints.txt"));
@@ -29,19 +30,19 @@ public class Main {
 			// checa acesso dos microserviços
 			system.setCommunications(CommunicationExtractor.getInstance().analyseAll(system));
 			
-			System.out.println("==== ACCESSES ====");
-			for (MicroserviceDefinition ms : system.getMicroservices()) {
-				System.out.println(ms + ": " + system.getCommunications(ms));
-			}
-
-			// verifica violações
-			Set<ArchitecturalDrift> drifts = CommunicationChecker.getInstance().check(system);
-			System.out.println("==== DRIFTS =====");
-			for (ArchitecturalDrift a : drifts) {
-				System.out.println(a.getMessage());
-			}
-			System.out.println("=================");
-			OutputManager output = new OutputManager();
+//			System.out.println("==== ACCESSES ====");
+//			for (MicroserviceDefinition ms : system.getMicroservices()) {
+//				System.out.println(ms + ": " + system.getCommunications(ms));
+//			}
+//
+//			// verifica violações
+//			Set<ArchitecturalDrift> drifts = CommunicationChecker.getInstance().check(system);
+//			System.out.println("==== DRIFTS =====");
+//			for (ArchitecturalDrift a : drifts) {
+//				System.out.println(a.getMessage());
+//			}
+//			System.out.println("=================");
+//			OutputManager output = new OutputManager();
 		//	output.violates(drifts);
 		//	Pi_DCL.validateLocalArchitecture(mapDcl);
 

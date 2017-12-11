@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,8 @@ import entities.CommunicateDefinition;
 import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import msdcl.ast.MsDCLDependencyVisitor;
+import msdcl.dependencies.Dependency;
+import msdcl.exception.MsDCLException;
 import util.Util;
 
 public class CommunicationExtractor {
@@ -29,6 +32,7 @@ public class CommunicationExtractor {
 	}
 
 	public static CommunicationExtractor getInstance() {
+		
 		return instance;
 	}
 	
@@ -70,6 +74,8 @@ public class CommunicationExtractor {
 
 	private Set<CommunicateDefinition> extractCommunicationsFromFile(File f, MicroserviceDefinition caller,
 			MicroservicesSystem system) throws IOException {
+		String filePath = f.getAbsolutePath();	
+		System.out.println("File Path: " + filePath);
 		Set<CommunicateDefinition> communications = new HashSet<>();
 		FileReader fr = new FileReader(f);
 		BufferedReader buffer = new BufferedReader(fr);
@@ -85,17 +91,45 @@ public class CommunicationExtractor {
 		fr.close();
 		return communications;
 	}
-
-	public Set<CommunicateDefinition> extractCommunicationsFromService(MicroserviceDefinition caller, MicroservicesSystem system) throws IOException {
+	
+	public Set<CommunicateDefinition> extractCommunicationFromFiles(File f, MicroserviceDefinition caller, 
+			MicroservicesSystem system) throws IOException, MsDCLException{
+		
+			MsDCLDependencyVisitor visit = new MsDCLDependencyVisitor();
+			String filePath = f.getAbsolutePath();
+			filePath = f.getAbsolutePath();
+			if(f.isFile()) {
+				
+				System.out.println("File Path: " + filePath);				
+				String service = Util.readFileToCharArray(filePath);
+				visit = new MsDCLDependencyVisitor(service);
+				
+			}		
+			ArrayList<Dependency> dependencies = new ArrayList<>();
+			for(Dependency d: dependencies) {
+				System.out.println("Class origem: " + d.getNameClass1() +
+						"Class destino: " + d.getNameClass2() +
+						"Tipo de dependencia: " + d.getDependencyType().getValue());
+			}
+			
+		
+			
+				return null;
+	}
+	
+	public Set<CommunicateDefinition> extractCommunicationsFromService(MicroserviceDefinition caller, MicroservicesSystem system) throws IOException, MsDCLException {
 		Set<CommunicateDefinition> accesses = new HashSet<>();
+		System.out.println("File: "+caller.getPath());
 		List<File> javaFiles = Util.getAllFiles(new File(caller.getPath()));
+		
 		for (File f : javaFiles) {
-			accesses.addAll(extractCommunicationsFromFile(f, caller, system));
+			System.out.println("f:  "+ f.getName());
+			accesses.addAll(extractCommunicationFromFiles(f, caller, system));
 		}
 		return accesses;
 	}
 
-	public HashMap<MicroserviceDefinition, Set<CommunicateDefinition>> analyseAll(MicroservicesSystem system) throws IOException {
+	public HashMap<MicroserviceDefinition, Set<CommunicateDefinition>> analyseAll(MicroservicesSystem system) throws IOException, MsDCLException {
 		HashMap<MicroserviceDefinition, Set<CommunicateDefinition>> map = new HashMap<>();
 		for (MicroserviceDefinition caller : system.getMicroservices()) {
 			Set<CommunicateDefinition> accesses = new HashSet<>();

@@ -24,6 +24,8 @@ public class Util {
 		}
 		List<File> anyFiles = new LinkedList<>();
 		File files[] = dir.listFiles();
+		String filePath = null;
+		
 		for(File f : files){
 			if(f.isDirectory()){
 				anyFiles.addAll(getAllFiles(f));
@@ -37,7 +39,8 @@ public class Util {
 		return anyFiles;
 	}
 	
-	public static char[] ReadFileToCharArray(String filePath) throws IOException {
+	public static String readFileToCharArray(String filePath) throws IOException {
+		
 		StringBuilder fileData = new StringBuilder(1000);
 		BufferedReader reader = new BufferedReader(new FileReader(filePath));
  
@@ -52,7 +55,7 @@ public class Util {
  
 		reader.close();
  
-		return  fileData.toString().toCharArray();	
+		return  fileData.toString();	
 	}
 	
 }
