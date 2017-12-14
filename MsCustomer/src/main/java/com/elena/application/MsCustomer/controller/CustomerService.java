@@ -74,7 +74,6 @@ public class CustomerService {
 
 	public List<String> findAllCustomer() {
 		List<Customer> customers = new ArrayList<>();		
-	//	customer.findAll().forEach(customers::add);
 		return customer.findAll().stream().map(a -> a.getName()).collect(Collectors.toList());
 
 	}

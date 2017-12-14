@@ -17,6 +17,7 @@ import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import msdcl.ast.MsDCLDependencyVisitor;
 import msdcl.dependencies.ClassAnnotationDependency;
+import msdcl.dependencies.ClassSingleAnnotationDependency;
 import msdcl.dependencies.FieldAnnotationDependency;
 import msdcl.dependencies.MethodAnnotationDependency;
 import msdcl.exception.MsDCLException;
@@ -103,13 +104,10 @@ public class CommunicationExtractor {
 			filePath = f.getAbsolutePath();
 			String s = f.getName();
 			if(f.isFile()) {
-				
-			//	System.out.println("File Path: " + filePath);				
 				String service = Util.readFileToCharArray(filePath);
 				visitor = new MsDCLDependencyVisitor(s, service);
 				
 			}	
-			
 			
 			getAnnotations(visitor);
 		
@@ -119,30 +117,32 @@ public class CommunicationExtractor {
 	
 	public void getAnnotations(MsDCLDependencyVisitor visitor) {
 		
-		HashMap<String, ArrayList > dependencies2 = visitor.getDependencies2();
+		HashMap<String, ArrayList > dependencies = visitor.getDependencies2();
 		
-		for(String nameClass : dependencies2.keySet()) {
-			if (!dependencies2.get(nameClass).isEmpty()) {				
+		
+		for(String nameClass : dependencies.keySet()) {
+			if (!dependencies.get(nameClass).isEmpty()) {				
 				
-				for (Object d : dependencies2.get(nameClass)) {
-					
+				for (Object d : dependencies.get(nameClass)) {
 					
 					if(d instanceof FieldAnnotationDependency) {
 					//	if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired")) {
 							System.out.println("clas1 : "+((FieldAnnotationDependency) d).getNameClass1());
 							System.out.println("class2: "+((FieldAnnotationDependency) d).getNameClass2());
 							System.out.println("field: "+((FieldAnnotationDependency) d).getNameField());
-							System.out.println("line: "+((FieldAnnotationDependency) d).getPosition());
-							System.out.println("length: "+((FieldAnnotationDependency) d).getLength());
+							System.out.println("declaration: "+((FieldAnnotationDependency) d).getDeclaration());
 							//System.out.println(((FieldAnnotationDependency) d).toString());
 						//}
 					}
+					
 					else if(d instanceof MethodAnnotationDependency) {
 						//if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired"))
 							System.out.println(((MethodAnnotationDependency) d).toString());
 					}
 					else if(d instanceof ClassAnnotationDependency) {
 						//if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired"))
+					
+							
 							System.out.println(((ClassAnnotationDependency) d).toString());
 					}
 				}
@@ -162,7 +162,7 @@ public class CommunicationExtractor {
 		
 		for (File f : javaFiles) {
 			System.out.println("f:  "+ f.getName());
-			extractCommunicationFromFiles(f, caller, system);
+   			extractCommunicationFromFiles(f, caller, system);
 			//accesses.addAll();
 		}
 		return accesses;
