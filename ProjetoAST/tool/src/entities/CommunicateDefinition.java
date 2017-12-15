@@ -8,7 +8,7 @@ public class CommunicateDefinition {
 	
 	public CommunicateDefinition(String microserviceOrigin, String microserviceDestin, String using){
 		this.microserviceOrigin = microserviceOrigin;
-		this.microserviceDestin = microserviceDestin;
+		this.microserviceDestin = microserviceDestin; 
 		this.using = using;
 	}
 	

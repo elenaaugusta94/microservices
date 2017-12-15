@@ -5,7 +5,7 @@ public class MethodAnnotationDependency extends AnnotationDependency {
 	public MethodAnnotationDependency(String nameClass1, String nameClass2, Integer position, Integer offset,
 			Integer length, String methodName) {
 		super(nameClass1, nameClass2, position, offset, length);
-		this.methodName = methodName;
+		this.methodName = methodName; 
 	}
 	public MethodAnnotationDependency( String nameClass2, Integer position, Integer offset,
 			Integer length, String methodName) {

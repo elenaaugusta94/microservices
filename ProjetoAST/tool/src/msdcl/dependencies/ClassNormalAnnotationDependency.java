@@ -1,21 +1,27 @@
 package msdcl.dependencies;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ClassNormalAnnotationDependency extends ClassAnnotationDependency{
-	private List<String> values;
+public class ClassNormalAnnotationDependency extends ClassAnnotationDependency {
+	private Set<MemberPair> membersValues = new HashSet<>();;
+
 	public ClassNormalAnnotationDependency(String nameClass1, String nameClass2, Integer position, Integer offset,
-			Integer length, List<String> values) {
+			Integer length, Set<MemberPair> membersValues) {
 		super(nameClass1, nameClass2, position, offset, length);
-		this.values = new ArrayList<>();
+		this.membersValues = membersValues;
 	}
-	public List<String> getValues() {
-		return values;
+
+	public Set<MemberPair> getMembersValues() {
+		return membersValues;
 	}
+
 	public String toString() {
-		return "'" + this.getNameClass1() + "   is annotated by " + this.getNameClass2()+
-				
-				" by expression " + this.values+ "'";
+		String output = "'" + this.getNameClass1() + "   is annotated by " + this.getNameClass2() + " with expression ";
+
+		for (MemberPair m : this.membersValues) {
+			output += " with name" + m.getName() + " and value: " + m.getValue() + ";";
+		}
+		return output;
 	}
 }

@@ -22,18 +22,15 @@ import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
 public class SaleController {
 
 	@Autowired
-	CustomerInterface customer;
+	private CustomerInterface customer;
 
 	@Autowired
-	ProductInterface product;
+	private ProductInterface product;
 
-	//@Autowired
-	//NewsLetterService newsLetter;
 
 	@Autowired
 	private RestTemplate restTemplate;
 
-	//CustomerService cs = new CustomerService();
 
 	@RequestMapping("/login")
 	String login() throws Exception {
@@ -61,10 +58,8 @@ public class SaleController {
 	@RequestMapping(value = { "/sale" }, method = RequestMethod.GET)
 	ModelAndView index2( ) {
 		ModelAndView modelAndView = new ModelAndView();
-	//	modelAndView.addObject("id", id);
-	//	modelAndView.setViewName("sale");
 		
-		return modelAndView;// "sale" ;//"sale";
+		return modelAndView;
 	}
 
 	@RequestMapping("/")
@@ -99,14 +94,7 @@ public class SaleController {
 		return product.getProduct(id);
 	}
 
-	@RequestMapping("/venda/getCustomers")
-	@ResponseBody
-	public String GetServiceInstancesRt() {
-
-		String response = restTemplate.getForObject("http://MsCustomer/customer/getCustomers", String.class);
-		return response;
-	}
-
+	
 	@RequestMapping("/venda/autenticacao/{user}/{senha}")
 	@ResponseBody
 	public String getAuthentication(@PathVariable("user") String user, @PathVariable("senha") String senha) {
