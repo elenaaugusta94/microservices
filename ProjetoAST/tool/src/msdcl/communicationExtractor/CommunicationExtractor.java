@@ -17,7 +17,7 @@ import entities.MicroserviceDefinition;
 import entities.MicroservicesSystem;
 import msdcl.ast.MsDCLDependencyVisitor;
 import msdcl.dependencies.ClassAnnotationDependency;
-import msdcl.dependencies.ClassSingleAnnotationDependency;
+import msdcl.dependencies.ClassNormalAnnotationDependency;
 import msdcl.dependencies.FieldAnnotationDependency;
 import msdcl.dependencies.MethodAnnotationDependency;
 import msdcl.exception.MsDCLException;
@@ -134,7 +134,17 @@ public class CommunicationExtractor {
 							//System.out.println(((FieldAnnotationDependency) d).toString());
 						//}
 					}
-					
+					if(d instanceof ClassNormalAnnotationDependency) {
+						//	if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired")) {
+								System.out.println("clas1 : "+((ClassNormalAnnotationDependency) d).getNameClass1());
+								System.out.println("class2: "+((ClassNormalAnnotationDependency) d).getNameClass2());
+								//System.out.println("field: "+((ClassNormalAnnotationDependency) d).getNameField());
+								for(String s : ((ClassNormalAnnotationDependency) d).getValues()) { 
+									System.out.print("s: "+ s);
+								}
+								//System.out.println(((FieldAnnotationDependency) d).toString());
+							//}
+						}
 					else if(d instanceof MethodAnnotationDependency) {
 						//if(((FieldAnnotationDependency) d).getNameClass2().equals("Autowired"))
 							System.out.println(((MethodAnnotationDependency) d).toString());
