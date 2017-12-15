@@ -7,7 +7,7 @@ public class MemberPair {
 		this.name = name;
 		this.value = value;
 	}
-	public String getName() {
+	public String getName() { 
 		return name;
 	}
 	public String getValue() {

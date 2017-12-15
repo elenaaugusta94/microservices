@@ -54,26 +54,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 	public MsDCLDependencyVisitor() {
 	}
 
-	public MsDCLDependencyVisitor(ICompilationUnit unit) throws MsDCLException {
-		try {
-			this.dependencies = new HashSet<Dependency>();
-			this.unit = unit;
- 
-			this.className = unit.getParent().getElementName() + "."
-					+ unit.getElementName().substring(0, unit.getElementName().length() - 5);
-
-			ASTParser parser = ASTParser.newParser(AST.JLS4);
-			parser.setKind(ASTParser.K_COMPILATION_UNIT);
-			parser.setSource(unit);
-			parser.setResolveBindings(true);
-
-			this.fullClass = (CompilationUnit) parser.createAST(null); // parse
-
-			this.fullClass.accept(this);
-		} catch (Exception e) {
-			throw new MsDCLException(e, unit);
-		}
-	}
+	
 
 	public MsDCLDependencyVisitor(String s, String str) throws MsDCLException {
 		try {
