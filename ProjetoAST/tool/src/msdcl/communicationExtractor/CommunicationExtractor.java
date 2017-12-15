@@ -55,7 +55,7 @@ public class CommunicationExtractor {
 	}
 
 	public CommunicateDefinition extractCommunicationFromString(String line, MicroserviceDefinition currentService,
-			MicroservicesSystem system) {
+			MicroservicesSystem system) { 
 		Matcher matcher = this.urlPattern.matcher(line); 
 
 		if (matcher.find()) {
@@ -136,7 +136,7 @@ public class CommunicationExtractor {
 
 					if (d instanceof FieldAnnotationDependency) {
 						if (((AnnotationDependency) d).getNameClass2().equals("Autowired")) {
-							getCommunicationsFromZull(((FieldAnnotationDependency) d).getDeclaration());
+							extractCommunicationsFromZull(((FieldAnnotationDependency) d).getDeclaration());
 							System.out.println(((FieldAnnotationDependency) d).toString());
 						}
 
@@ -144,7 +144,6 @@ public class CommunicationExtractor {
 					if (d instanceof ClassNormalAnnotationDependency) {
 						if (((ClassNormalAnnotationDependency) d).getNameClass2().equals("FeignClient")) {
 							System.out.println(((ClassNormalAnnotationDependency) d).toString());
-							// System.out.println(((FieldNormalAnnotationDependency) d).toString());
 						}
 					}
 					System.out.println();
@@ -154,13 +153,14 @@ public class CommunicationExtractor {
 		}
 	}
 	
-	public void getCommunicationsFromZull(String className) {
+	public void extractCommunicationsFromZull(String className) {
+		Set<CommunicateDefinition> communications = new HashSet<>();
 		Set dependenciesOfClass = this.dependencies.get(className);
 		for(Object dep : dependenciesOfClass) {
 			if(dep instanceof ClassNormalAnnotationDependency) {
 				for(MemberPair m : ((ClassNormalAnnotationDependency) dep).getMembersValues()) {
 					if(m.getValue().equals("MsCustomer"));
-					
+						//TODO: verificar os metodos e definir as comunicações
 				}
 			}
 		}

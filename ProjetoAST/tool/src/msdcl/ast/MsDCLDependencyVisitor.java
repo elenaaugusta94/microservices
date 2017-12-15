@@ -58,7 +58,6 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 
 	public MsDCLDependencyVisitor(String s, String str) throws MsDCLException {
 		try {
-			// System.out.println("O que chegou aqui senhor: "+ str);
 			this.dependencies = new HashSet<Dependency>();
 			ASTParser parser = ASTParser.newParser(AST.JLS4);
 			parser.setSource(str.toCharArray());
