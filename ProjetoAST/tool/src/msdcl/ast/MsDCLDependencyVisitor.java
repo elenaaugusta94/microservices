@@ -2,6 +2,7 @@ package msdcl.ast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -143,11 +144,13 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 	@Override
 	public boolean visit(NormalAnnotation node) {
 		List<MemberValuePair> members = node.values();
-		List<String> memberPairs = new ArrayList<>();
+		Set<MemberPair> memberPairs = new HashSet<>();
 		for(MemberValuePair m : members) {
 //			System.out.println("m: "+ m.getName().getIdentifier());
-			memberPairs.add(m.getName().getIdentifier());
+			memberPairs.add(new MemberPair(m.getName().getIdentifier(), m.getValue().toString()));
+			
 		}
+		
 		if(node.getParent().getNodeType() == ASTNode.TYPE_DECLARATION) {
 			this.dependencies.add(new ClassNormalAnnotationDependency(this.className,
 					node.getTypeName().getFullyQualifiedName(), 
@@ -167,7 +170,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 							node.getLength(),
 							((VariableDeclarationFragment) field.fragments().get(0)).getName().getIdentifier(),
 							typeDependency, 
-							memberPairs));
+							));
 		}
 		
 		return false;
@@ -212,6 +215,8 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 		}
 		return "";
 	}
+	
+	
 
 	public ArrayList<Dependency> getDependencies() {
 		return dependencies;
