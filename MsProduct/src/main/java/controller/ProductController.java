@@ -34,6 +34,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	public String nome = "ELENA";
+
+	
 
 	@RequestMapping("/index")
 	@ResponseBody

@@ -28,7 +28,7 @@ public class Main {
 			MicroservicesSystem system = inputManager.readFile(new File("constraints.txt"));
 
 			// checa acesso dos microserviços
-			system.setCommunications(CommunicationExtractor.getInstance().analyseAll(system));
+			system.setCommunications(CommunicationExtractor.getInstance().analyseAll(system)); 
 			
 //			System.out.println("==== ACCESSES ====");
 //			for (MicroserviceDefinition ms : system.getMicroservices()) {

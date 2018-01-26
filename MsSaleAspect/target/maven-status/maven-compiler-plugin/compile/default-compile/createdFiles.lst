@@ -1,0 +1,8 @@
+com/elena/application/MsSaleSpring/controller/SaleController.class
+com/elena/application/MsSaleSpring/intercomm/FeignConfiguration.class
+com/elena/application/MsSaleSpring/intercomm/CustomerInterface.class
+main/java/com/example/saleApp/ServletInitializer.class
+com/elena/application/MsSaleSpring/intercomm/ProductInterface.class
+com/example/saleApp/TesteSaleApplication.class
+com/elena/application/MsSaleSpring/controller/Services.class
+com/elena/application/MsSaleSpring/intercomm/NewsLetterInterface.class
