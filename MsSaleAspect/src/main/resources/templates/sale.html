@@ -60,7 +60,7 @@
                     console.log("Searching by " + $scope.client.cpf);
                     $http({
                         method: 'GET',
-                        url: 'http://localhost:9097/venda/getCustomerCpf/' + $scope.client.cpf
+                        url: 'http://localhost:9097/venda/customer/getCustomerCpf/' + $scope.client.cpf
                     }).then(function (success){
                         console.log(success);
                         $scope.client.dados = success.data;

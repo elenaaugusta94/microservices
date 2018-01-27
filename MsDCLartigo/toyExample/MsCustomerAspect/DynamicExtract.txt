@@ -1,0 +1,2 @@
+viacep.com.br using ws/37200000/json/
+MsProduct using /getAllProducts/

@@ -1,0 +1,5 @@
+spring: 
+application:
+name: MsCustomer
+server.port: 9093
+server: localhost

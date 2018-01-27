@@ -1,0 +1,45 @@
+MsSale
+	Communication Violates: 
+		Abscence: MsCustomer MUST_COMMUNICATE MsNewsletter
+		Abscence: MsProduct MUST_COMMUNICATE MsNewsletter
+		Abscence: MsSale MUST_COMMUNICATE MsAuthenticate
+		Abscence: MsSale MUST_COMMUNICATE MsProduct
+		Abscence: MsSale MUST_COMMUNICATE MsCustomer
+	Not exists Structurals Design Violations! 
+
+MsProduct
+	Communication Violates: 
+		Abscence: MsCustomer MUST_COMMUNICATE MsNewsletter
+		Abscence: MsProduct MUST_COMMUNICATE MsNewsletter
+		Abscence: MsSale MUST_COMMUNICATE MsAuthenticate
+		Abscence: MsSale MUST_COMMUNICATE MsProduct
+		Abscence: MsSale MUST_COMMUNICATE MsCustomer
+	Not exists Structurals Design Violations! 
+
+MsCustomer
+	Communication Violates: 
+		Abscence: MsCustomer MUST_COMMUNICATE MsNewsletter
+		Abscence: MsProduct MUST_COMMUNICATE MsNewsletter
+		Abscence: MsSale MUST_COMMUNICATE MsAuthenticate
+		Abscence: MsSale MUST_COMMUNICATE MsProduct
+		Abscence: MsSale MUST_COMMUNICATE MsCustomer
+	Not exists Structurals Design Violations! 
+
+MsNewsletter
+	Communication Violates: 
+		Abscence: MsCustomer MUST_COMMUNICATE MsNewsletter
+		Abscence: MsProduct MUST_COMMUNICATE MsNewsletter
+		Abscence: MsSale MUST_COMMUNICATE MsAuthenticate
+		Abscence: MsSale MUST_COMMUNICATE MsProduct
+		Abscence: MsSale MUST_COMMUNICATE MsCustomer
+	Not exists Structurals Design Violations! 
+
+MsAuthenticate
+	Communication Violates: 
+		Abscence: MsCustomer MUST_COMMUNICATE MsNewsletter
+		Abscence: MsProduct MUST_COMMUNICATE MsNewsletter
+		Abscence: MsSale MUST_COMMUNICATE MsAuthenticate
+		Abscence: MsSale MUST_COMMUNICATE MsProduct
+		Abscence: MsSale MUST_COMMUNICATE MsCustomer
+	Not exists Structurals Design Violations! 
+

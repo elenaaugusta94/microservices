@@ -26,8 +26,8 @@ public class TesteSaleApplication {
 	}
 	
 	 @LoadBalanced
-	  @Bean
-	  public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	 @Bean
+	 public RestTemplate restTemplate(RestTemplateBuilder builder) {
 	     return builder.build();
-	  }
+	 }
 }

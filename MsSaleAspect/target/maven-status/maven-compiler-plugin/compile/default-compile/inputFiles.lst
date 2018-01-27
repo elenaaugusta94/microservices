@@ -1,8 +1,8 @@
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/ProductInterface.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/NewsLetterInterface.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/controller/Services.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/example/saleApp/TesteSaleApplication.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/example/saleApp/ServletInitializer.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/controller/SaleController.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/FeignConfiguration.java
-/home/elena/eclipse-workspace/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/CustomerInterface.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/example/saleApp/TesteSaleApplication.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/FeignConfiguration.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/example/saleApp/ServletInitializer.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/controller/Services.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/CustomerInterface.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/ProductInterface.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/intercomm/NewsLetterInterface.java
+/home/elena/Documents/aplicacao/microservices/MsSaleAspect/src/main/java/com/elena/application/MsSaleSpring/controller/SaleController.java
