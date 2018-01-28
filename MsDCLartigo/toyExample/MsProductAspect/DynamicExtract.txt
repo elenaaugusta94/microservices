@@ -1,1 +1,0 @@
-MsAuthentication using /api/authenticate
