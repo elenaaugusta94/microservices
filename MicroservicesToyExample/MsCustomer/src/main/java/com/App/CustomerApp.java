@@ -10,17 +10,17 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EntityScan("com.elena.application.MsCustomer.entities")
-@ComponentScan({"com.elena.application.MsCustomer.controller"})
-@EnableJpaRepositories("com.elena.application.MsCustomer.DAO")
+@EntityScan("com.entities")
+@ComponentScan({"com.controller"})
+@EnableJpaRepositories("com.DAO")
 
 
 
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@EnableFeignClients(basePackages = {"com.elena.application.MsCustomer.intercomm", "com.elena.application.MsCustomer.controller"})
-@SpringBootApplication(scanBasePackages={"com.elena.application.MsCustomer.intercomm","com.elena.application.MsCustomer.DAO","com.elena.application.MsCustomer.entities","com.elena.application.MsCustomer.controller"})
+@EnableFeignClients(basePackages = {"com.intercomm", "com.controller"})
+@SpringBootApplication(scanBasePackages={"com.intercomm","com.DAO","com.entities","com.controller"})
 public class CustomerApp {
 	
 	public static void main(String[] args) {

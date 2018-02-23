@@ -1,4 +1,4 @@
-package com.example.saleApp;
+package com.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
-@ComponentScan({"com.elena.application.MsSaleSpring.controller"})
+@ComponentScan({"com.controller"})
 
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@EnableFeignClients(basePackages = {"com.elena.application.MsSaleSpring.intercomm", "com.elena.application.MsSaleSpring.controller"})
-@SpringBootApplication(scanBasePackages={"com.elena.application.MsSaleSpring.intercomm","com.elena.application.MsSaleSpring.controller"})
+@EnableFeignClients(basePackages = {"com.intercomm", "com.controller"})
+@SpringBootApplication(scanBasePackages={"com.intercomm","com.controller"})
 public class TesteSaleApplication {
 
 	public static void main(String[] args) {

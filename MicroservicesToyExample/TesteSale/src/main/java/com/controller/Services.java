@@ -1,10 +1,10 @@
-package com.elena.application.MsSaleSpring.controller;
+package com.controller;
 
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
+import com.intercomm.ProductInterface;
 
 public class Services {
 	
@@ -22,7 +22,6 @@ public class Services {
             urlParameters.append("&qt=").append(qtds[i]);
         }
        String result = product.updateStock(ids, qtds);
-      	//	Services.callServiceViaPost(linkUpdateStock, urlParameters.toString());
         return result.equalsIgnoreCase("sucess");
     }
 }

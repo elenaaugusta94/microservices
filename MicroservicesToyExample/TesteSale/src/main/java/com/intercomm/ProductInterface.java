@@ -1,4 +1,4 @@
-package com.elena.application.MsSaleSpring.intercomm;
+package com.intercomm;
 
 import java.util.List;
 

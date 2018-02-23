@@ -1,4 +1,4 @@
-package com.elena.application.MsSaleSpring.intercomm;
+package com.intercomm;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value="MsCustomer")
 public interface CustomerInterface {
 	
-	@RequestMapping( method = RequestMethod.GET, value="/getCustomerCpf/{cpf}")
+	@RequestMapping( method = RequestMethod.GET, value="customer/getCustomerCpf/{cpf}")
 	public String getCustomerCpf(@PathVariable("cpf") String cpf);
 	
 	@RequestMapping( method = RequestMethod.GET, value="/getCustomers")

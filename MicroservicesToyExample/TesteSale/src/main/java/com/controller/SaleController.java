@@ -1,4 +1,4 @@
-package com.elena.application.MsSaleSpring.controller;
+package com.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.elena.application.MsSaleSpring.intercomm.CustomerInterface;
-import com.elena.application.MsSaleSpring.intercomm.ProductInterface;
+import com.intercomm.CustomerInterface;
+import com.intercomm.ProductInterface;
 
 @Controller
 public class SaleController {

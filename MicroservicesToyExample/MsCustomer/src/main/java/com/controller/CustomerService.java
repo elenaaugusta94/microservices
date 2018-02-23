@@ -38,7 +38,7 @@ public class CustomerService {
 
 		try {
 			Customer c = customer.findByCpf(cpf);
-			logger.info("Cliente criado com Sucesso!");
+			logger.info("Cliente encontrado com Sucesso!");
 			return c;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -51,7 +51,7 @@ public class CustomerService {
 	public Customer findCustomerByName(String name) {
 		try {
 			Customer c = customer.findByName(name);
-			logger.info("Cliente criado com Sucesso!");
+			logger.info("Cliente encontrado com Sucesso!");
 			return c;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -80,7 +80,7 @@ public class CustomerService {
 
 	public String getProductsInCustomer(String id) {
 		try {
-			return "";// product.getProductID(id);
+			return "";
 		
 
 		} catch (ArrayIndexOutOfBoundsException e) {
