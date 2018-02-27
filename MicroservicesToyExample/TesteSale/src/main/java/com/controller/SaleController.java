@@ -87,22 +87,32 @@ public class SaleController {
 		}
 
 	}
+	
 
 	@RequestMapping("/venda/getProduct/{id}")
 	@ResponseBody
 	public String getProduct(@PathVariable("id") String id) {
 		return product.getProduct(id);
 	}
-
 	
-	@RequestMapping("/venda/autenticacao/{user}/{senha}")
+	@RequestMapping(value= "/venda/autenticacao/{user}/{senha}", method = RequestMethod.GET)
 	@ResponseBody
-	public String getAuthentication(@PathVariable("user") String user, @PathVariable("senha") String senha) {
-		String response = restTemplate.postForObject(
-				"http://MsAuthentication/api/authenticate?username=" + user + "&password=" + senha, null, String.class);
+	public String getAuthentication(@PathVariable String user, @PathVariable String senha) {
+		System.out.println("user: " + user + "password:  " + senha);
+		String response = restTemplate.getForObject(
+				"http://MsAutenticacao/autenticate/" + user +  senha, null, Boolean.class);
+		System.out.println("RESPONSE/ " + response);
 		return response;
-
 	}
+	
+//	@RequestMapping("/venda/autenticacao/{user}/{senha}")
+//	@ResponseBody
+//	public String getAuthentication(@PathVariable("user") String user, @PathVariable("senha") String senha) {
+//		String response = restTemplate.postForObject(
+//				"http://MsAuthentication/api/authenticate?username=" + user + "&password=" + senha, null, String.class);
+//		return response;
+//
+//	}
 	@RequestMapping("/atualizaProducts/{qnt}/{id}")
 	@ResponseBody
 	public String productUpdate(@PathVariable("qnt") int qnt, @PathVariable("id") String id){

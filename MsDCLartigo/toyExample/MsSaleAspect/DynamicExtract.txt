@@ -1,2 +1,0 @@
-MsAuthentication using /api/authenticate
-MsProduct using /getProducts/

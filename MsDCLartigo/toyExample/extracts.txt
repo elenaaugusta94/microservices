@@ -1,8 +1,0 @@
-MsCustomer communicate MsProduct using /product/getProduct/{id}
-MsSale communicate MsProduct using /venda/{id}/{qnt}
-MsSale communicate MsProduct using /product/getProduct/{id}
-MsSale communicate MsCustomer using /customer/getCustomerCpf/{cpf}
-MsSale communicate MsAuthentication using /api/authenticate
-MsCustomer communicate MsProduct using /getAllProducts/
-MsSale communicate MsProduct using /getProducts/
-MsCustomer communicate viacep.com.br using ws/37200000/json/
