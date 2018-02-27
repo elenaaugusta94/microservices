@@ -1,4 +1,4 @@
-package com.App;
+package com.app;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

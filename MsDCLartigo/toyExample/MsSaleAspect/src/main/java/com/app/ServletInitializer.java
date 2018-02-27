@@ -1,9 +1,9 @@
-package com.App;
+package com.app;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-import com.App.SaleApp;
+import com.app.SaleApp;
 
 
 

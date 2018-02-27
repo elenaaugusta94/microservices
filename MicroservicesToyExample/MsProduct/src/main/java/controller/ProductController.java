@@ -1,16 +1,10 @@
 package controller;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,34 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import DAO.ProductDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import entities.Product;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.StringWriter;
 
 @RestController
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-	public String nome = "ELENA";
-
-	
 
 	@RequestMapping("/index")
 	@ResponseBody
 	public String index() {
 		return "index";
-	}
-
-	public ProductController() {
-
 	}
 
 	@RequestMapping("*")
