@@ -3,7 +3,7 @@ package util;
 public class RulesRegex {
 
 	
-	public static final String MICROSERVICE_REGEX = "(\\w+)(.+):(\\s+)(http://)(.+);(\\s+)(.+);(\\s+)(\\w+)(.+)";
+	public static final String MICROSERVICE_REGEX = "(\\w+)(.+):(\\s+)(http://)(.+);(\\s+)(.+)";
 	public static final String MICROSERVICE_TOKENS = "(:(\\s+))|;(\\s+)";
 	public static final String DCL_REGEX = "^\\t(.+)";
 	private static final String PARTIAL_CONSTRAINT_SERVICE_NAME = "(\\s*)(\\w+)(.+)(\\s*)(,(\\s*)(\\w+)(.+)(\\s*))*";
