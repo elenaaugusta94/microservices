@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.intercomm.AuthenticateInterface;
 import com.intercomm.CustomerInterface;
 import com.intercomm.ProductInterface;
 
@@ -26,8 +27,10 @@ public class SaleController {
 
 	@Autowired
 	private ProductInterface product;
-
-
+	
+	@Autowired
+	private AuthenticateInterface auth;
+	
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -95,13 +98,14 @@ public class SaleController {
 		return product.getProduct(id);
 	}
 	
-	@RequestMapping(value= "/venda/autenticacao/{user}/{senha}", method = RequestMethod.GET)
+	@RequestMapping(value= "/venda/autenticacao/{user}/{password}", method = RequestMethod.GET)
 	@ResponseBody
-	public String getAuthentication(@PathVariable String user, @PathVariable String senha) {
-		System.out.println("user: " + user + "password:  " + senha);
-		String response = restTemplate.getForObject(
-				"http://MsAutenticacao/autenticate/" + user +  senha, null, Boolean.class);
-		System.out.println("RESPONSE/ " + response);
+	public String getAuthentication(@PathVariable String user, @PathVariable String password) {
+		System.out.println("user: " + user + "password:  " + password);
+		String response = auth.verifyAuthentication(user, password);
+		//		String response = restTemplate.getForObject(
+//				"http://MsAutenticacao/autenticate/" + user +  password, null, String.class);
+//		System.out.println("RESPONSE/ " + response);
 		return response;
 	}
 	
