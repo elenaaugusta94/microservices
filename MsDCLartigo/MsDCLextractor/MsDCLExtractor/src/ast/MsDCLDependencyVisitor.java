@@ -52,7 +52,7 @@ public class MsDCLDependencyVisitor extends ASTVisitor {
 	public MsDCLDependencyVisitor(String className2, String str) throws MsDCLException {
 		try {
 			this.dependencies = new ArrayList<Dependency>();
-			ASTParser parser = ASTParser.newParser(AST.JLS4);
+			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource(str.toCharArray());
 			parser.setKind(ASTParser.K_COMPILATION_UNIT);
 			this.fullClass = (CompilationUnit) parser.createAST(null);

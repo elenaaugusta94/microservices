@@ -1,0 +1,3 @@
+MsCustomer: http://localhost:9093; /home/elena/Documentos/Arquitetura/arqsw_20172_grupo2/TP9/toyexample/MsCustomer
+TesteSale: http://localhost:9097; /home/elena/Documentos/Arquitetura/arqsw_20172_grupo2/TP9/toyexample/TesteSale
+MsProduct: http://localhost:9092; /home/elena/Documentos/Arquitetura/arqsw_20172_grupo2/TP9/toyexample/MsProduct

@@ -79,6 +79,7 @@ public class InputManager {
 	}
 	
 	public MicroservicesSystem readFile(File f) throws IOException {
+		
 		MicroservicesSystem system = new MicroservicesSystem();
 		FileReader file = new FileReader(f);
 		BufferedReader buffer = new BufferedReader(file);
@@ -91,8 +92,7 @@ public class InputManager {
 				String name = tokens[0];
 				String link = tokens[1];
 				String path = tokens[2];
-				String language = tokens[3];
-				currentService = new MicroserviceDefinition(name, link, path, language);
+				currentService = new MicroserviceDefinition(name, link, path);
 				system.addMicroservice(currentService);
 				system.getAllMicrosservice().add(currentService.getName());
 			}else if(line.matches(RulesRegex.DCL_REGEX)){

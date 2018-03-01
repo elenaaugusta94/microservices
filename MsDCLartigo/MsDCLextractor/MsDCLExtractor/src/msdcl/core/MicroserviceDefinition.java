@@ -14,6 +14,11 @@ public class MicroserviceDefinition {
 		this.language = language; 
 	}
 	
+	public MicroserviceDefinition(String name, String link, String path){
+		this.name = name;
+		this.link = link;
+		this.path = path;
+	}
 	public String getName() {
 		return name;
 	}

@@ -3,9 +3,7 @@ package util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,6 +75,8 @@ public class Util {
 		return fileData.toString();
 	}
 
+	// Lê todos os arquivos dos microsserviços e busca pelo arquivo de configuração
+	//bootstrap
 	public Set<File> readFileConfig(File dir) throws IOException {
 		Set<File> files = new HashSet<>();
 		if (dir.isDirectory()) {
@@ -142,7 +142,6 @@ public class Util {
 		FileReader file;
 		file = new FileReader(f);
 		BufferedReader buffer = new BufferedReader(file);
-		// BufferedWriter writer = new BufferedWriter(file);
 		String line = "";
 
 		while (buffer.ready()) {
@@ -200,7 +199,7 @@ public class Util {
 
 
 	public void createConstraints(String path) throws IOException {
-		OutputManager.createConstraints(system, path);
+		OutputManager.createConstraints(system, path+"constraints.txt");
 	}
 
 	public Set<String> getExtracts() { 
